@@ -2,6 +2,22 @@
   const props = defineProps(['calculationDisplay']);
 </script>
 
+<style scoped>
+  .card {
+    background-color: #3e8ed0;
+  }
+
+  .card .title {
+    color: #fff;
+  }
+
+  .card .table {
+    background-color: #3e8ed0;
+    color: #fff;
+  }
+</style>
+
+
 <template>
   <div class="card is-info">
     <div class="card-content">

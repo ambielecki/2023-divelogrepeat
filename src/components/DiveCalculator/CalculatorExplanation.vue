@@ -9,7 +9,7 @@
         Calculate Your Dives
       </p>
       <div class="content">
-        Perform simple calculations for your dives according to PADI tables in Imperial Units. This information is for testing only. All divers should check their own calculations using dive tables, computers, or other accepted tool. We assume no liability for the use of this tool.
+        Perform simple calculations for your dives according to PADI tables in Imperial Units. <b>This information is for testing only. All divers should check their own calculations using dive tables, computers, or other accepted tool. We assume no liability for the use of this tool.</b>
       </div>
       <p class="title is-4">
         How to Use this Tool
