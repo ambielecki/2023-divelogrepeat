@@ -1,4 +1,23 @@
 <script setup>
+  import { onMounted } from "vue";
+
+  onMounted(() => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+      });
+    });
+  });
 </script>
 
 <style scoped>
@@ -8,18 +27,24 @@
 </style>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">DiveLogRepeat</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link :to="{ name: 'dive_calculator' }" class="nav-link">Dive Calculator</router-link>
-          </li>
-        </ul>
+  <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <router-link :to="{ name: 'home' }" class="navbar-item">DiveLogRepeat</router-link>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="divelog_navbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="divelog_navbar" class="navbar-menu">
+      <div class="navbar-start">
+        <router-link :to="{ name: 'dive_calculator' }" class="navbar-item">Dive Calculator</router-link>
+      </div>
+
+      <div class="navbar-end">
+
       </div>
     </div>
   </nav>

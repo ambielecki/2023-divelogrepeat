@@ -5,7 +5,7 @@ import TopNav from "./components/TopNav.vue";
 
 <template>
   <TopNav />
-  <div class="container-fluid">
+  <div class="container">
     <RouterView />
   </div>
 </template>

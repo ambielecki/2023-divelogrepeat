@@ -2,6 +2,7 @@
   import { ref } from 'vue';
   import CalculatorInput from "../components/DiveCalculator/CalculatorInput.vue";
   import CalculatorDisplay from "../components/DiveCalculator/CalculatorDisplay.vue";
+  import CalculatorExplanation from "../components/DiveCalculator/CalculatorExplanation.vue";
   import calculatorProvider from "../providers/CalculatorProvider";
 
   let calculationResponse = ref({
@@ -38,11 +39,14 @@
 </script>
 
 <template>
-  <div class="row">
-    <div class="col-lg-3 col-sm-12">
+  <div class="columns">
+    <div class="column is-one-third">
+      <CalculatorExplanation/>
+    </div>
+    <div class="column is-one-third">
       <CalculatorInput @calculate-dive="calculateDive" :calculation-input="calculationInput"/>
     </div>
-    <div class="col-lg-3 col-sm-12">
+    <div class="column is-one-third">
       <CalculatorDisplay :calculation-display="calculationResponse"/>
     </div>
   </div>

@@ -4,25 +4,65 @@
 
 <template>
   <div class="card">
-    <div class="card-body">
-      <div class="card-title">Calculate Dive</div>
-      <form>
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label for="dive_1_depth">Dive 1 Depth (ft)</label>
-              <input type="number" class="form-control" id="dive_1_depth" v-model="calculationInput.dive_1_depth">
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="form-group">
-              <label for="dive_1_time">Dive 1 Time (min)</label>
-              <input type="number" class="form-control" id="dive_1_time" v-model="calculationInput.dive_1_time">
+    <div class="card-content">
+      <div class="columns is-mobile">
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Dive 1 Depth</label>
+            <div class="control">
+              <input type="number" id="dive_1_depth" v-model="calculationInput.dive_1_depth">
             </div>
           </div>
         </div>
-        <button @click="$emit('calculateDive')" type="button" class="btn btn-primary">Calculate</button>
-      </form>
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Dive 1 Time</label>
+            <div class="control">
+              <input type="number" id="dive_1_time" v-model="calculationInput.dive_1_time">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-mobile">
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Surface Interval</label>
+            <div class="control">
+              <input type="number" id="surface_interval" v-model="calculationInput.surface_interval">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-mobile">
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Dive 2 Depth</label>
+            <div class="control">
+              <input type="number" id="dive_2_depth" v-model="calculationInput.dive_2_depth">
+            </div>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">Dive 2 Time</label>
+            <div class="control">
+              <input type="number" id="dive_2_time" v-model="calculationInput.dive_2_time">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-mobile">
+        <div class="column is-one-third">
+          <div class="field is-grouped">
+            <div class="control">
+              <button @click="$emit('calculateDive')" type="button" class="button is-info">Calculate</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
