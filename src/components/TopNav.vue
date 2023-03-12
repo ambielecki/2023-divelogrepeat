@@ -20,14 +20,8 @@
   });
 </script>
 
-<style scoped>
-  nav {
-    margin-bottom: 1rem;
-  }
-</style>
-
 <template>
-  <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-info is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link :to="{ name: 'home' }" class="navbar-item">DiveLogRepeat</router-link>
 

@@ -3,7 +3,7 @@ class CalculatorProvider {
         this.base_api = import.meta.env.VITE_API_URL;
     }
 
-    async caclulateDive(
+    async calculateDive(
         dive_1_depth,
         dive_1_time = null,
         surface_interval = null,

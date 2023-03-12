@@ -24,7 +24,7 @@
 
   async function calculateDive() {
     const params = calculationInput.value;
-    const response = await calculatorProvider.caclulateDive(
+    const results = await calculatorProvider.calculateDive(
           params.dive_1_depth,
           params.dive_1_time,
           params.surface_interval,
@@ -32,8 +32,8 @@
           params.dive_2_time,
     );
 
-    if (response) {
-      calculationResponse.value = response;
+    if (results) {
+      calculationResponse.value = results;
     }
   }
 </script>
