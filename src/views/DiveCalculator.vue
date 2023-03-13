@@ -3,7 +3,8 @@
   import CalculatorInput from "../components/DiveCalculator/CalculatorInput.vue";
   import CalculatorDisplay from "../components/DiveCalculator/CalculatorDisplay.vue";
   import CalculatorExplanation from "../components/DiveCalculator/CalculatorExplanation.vue";
-  import calculatorProvider from "../providers/CalculatorProvider";
+  import { useAsyncGet } from "../composables/asyncGet";
+  import CalculatorProvider from "../providers/CalculatorProvider";
 
   let calculationResponse = ref({
     dive_1_max_time: null,
@@ -23,18 +24,7 @@
   });
 
   async function calculateDive() {
-    const params = calculationInput.value;
-    const results = await calculatorProvider.calculateDive(
-          params.dive_1_depth,
-          params.dive_1_time,
-          params.surface_interval,
-          params.dive_2_depth,
-          params.dive_2_time,
-    );
-
-    if (results) {
-      calculationResponse.value = results;
-    }
+    calculationResponse.value = await CalculatorProvider.calculateDive(calculationInput.value);
   }
 </script>
 

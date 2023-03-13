@@ -38,7 +38,14 @@
       </div>
 
       <div class="navbar-end">
-
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-info is-light">
+              <strong>Sign up</strong>
+            </a>
+            <router-link :to="{ name: 'login' }" class="button is-info is-light"><strong>Log In</strong></router-link>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
