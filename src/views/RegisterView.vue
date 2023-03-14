@@ -1,105 +1,117 @@
 <script setup>
-import { useUserStore } from "../stores/user";
-import { useAlertStore } from "../stores/alert";
-import { ref, computed } from 'vue';
-import AuthProvider from "../providers/AuthProvider";
-import validationProvider from "../providers/ValidationProvider";
-import router from "../router";
+  import { useUserStore } from "../stores/user";
+  import { useAlertStore } from "../stores/alert";
+  import { ref, computed } from 'vue';
+  import AuthProvider from "../providers/AuthProvider";
+  import validationProvider from "../providers/ValidationProvider";
+  import router from "../router";
 
-const userStore = useUserStore();
-const first_name = ref('');
-const last_name = ref('');
-const password = ref('');
-const password_confirm = ref('');
-const email = ref('');
-const errors = ref({
-  first_name: [],
-  last_name: [],
-  email: [],
-  password: [],
-})
-
-const has_errors = computed(() => {
-  let return_value = false;
-  for (const field in errors.value) {
-    if (errors.value[field].length > 0) {
-      return_value = true;
-      break;
-    }
-  }
-
-  return return_value;
-})
-
-const hide_login = ref(userStore.is_logged_in);
-const is_loading = ref(false);
-
-async function register() {
-
-}
-
-async function login() {
-  is_loading.value = true;
-  hide_login.value = false;
-
-  validateForm();
-
-  if (has_errors.value) {
-    is_loading.value = false;
-    return
-  }
-
-  const response = await AuthProvider.login({
-    email: email.value,
-    password: password.value,
-  });
-
-  if (response) {
-    userStore.access_token = response.access_token;
-
-    const user = await AuthProvider.getUser();
-    if (user) {
-      userStore.$patch({
-        user: user,
-        is_logged_in: true,
-      });
-
-      useAlertStore().addAlert('Successfully Logged In');
-
-      router.push({ name: 'home' });
-    }
-  }
-
-  is_loading.value = false;
-}
-
-function validateForm() {
-  errors.value = {
+  const userStore = useUserStore();
+  const first_name = ref('');
+  const last_name = ref('');
+  const password = ref('');
+  const password_confirmation = ref('');
+  const email = ref('');
+  const errors = ref({
+    first_name: [],
+    last_name: [],
     email: [],
     password: [],
+  })
+
+  const has_errors = computed(() => {
+    let return_value = false;
+    for (const field in errors.value) {
+      if (errors.value[field].length > 0) {
+        return_value = true;
+        break;
+      }
+    }
+
+    return return_value;
+  })
+
+  const hide_register = ref(userStore.is_logged_in);
+  const is_loading = ref(false);
+
+  async function register() {
+    is_loading.value = true;
+    hide_register.value = false;
+    validateForm();
+
+    if (has_errors.value) {
+      is_loading.value = false;
+      return
+    }
+
+    const response = await AuthProvider.register({
+      first_name: first_name.value,
+      last_name: last_name.value,
+      email: email.value,
+      password: password.value,
+      password_confirmation: password_confirmation.value,
+    });
+
+    if (response) {
+      userStore.access_token = response.access_token;
+
+      const user = response.user;
+      if (user) {
+        userStore.$patch({
+          user: user,
+          is_logged_in: true,
+        });
+
+        useAlertStore().addAlert('Successfully Registered, Welcome!');
+
+        router.push({ name: 'home' });
+      }
+    }
+
+    is_loading.value = false;
   }
 
-  if (!email.value) {
-    errors.value.email.push('Email is required.');
-  }
+  function validateForm() {
+    errors.value = {
+      first_name: [],
+      last_name: [],
+      email: [],
+      password: [],
+    };
 
-  if (!validationProvider.validateEmail(email.value)) {
-    errors.value.email.push('Must be a valid email.');
-  }
+    if (!first_name.value) {
+      errors.value.first_name.push('First name is required.');
+    }
 
-  if (!password.value) {
-    errors.value.password.push('Password is required.');
-  }
+    if (!last_name.value) {
+      errors.value.last_name.push('Last name is required.');
+    }
 
-  if (!validationProvider.validateLength(password.value, 8)) {
-    errors.value.password.push('Password must be at least 8 characters.');
+    if (!email.value) {
+      errors.value.email.push('Email is required.');
+    }
+
+    if (!validationProvider.validateEmail(email.value)) {
+      errors.value.email.push('Must be a valid email.');
+    }
+
+    if (!password.value) {
+      errors.value.password.push('Password is required.');
+    }
+
+    if (!validationProvider.validateLength(password.value, 8)) {
+      errors.value.password.push('Password must be at least 8 characters.');
+    }
+
+    if (!validationProvider.validateMatch(password.value, password_confirmation.value)) {
+      errors.value.password.push('Passwords must match.');
+    }
   }
-}
 </script>
 
 <template>
-  <div v-if="hide_login">
-    You are already logged in
+  <div v-if="hide_register">
+    You have already registered and are logged in.
   </div>
   <div v-else class="columns is-centered">
     <div class="column is-half">
@@ -191,14 +203,14 @@ function validateForm() {
 
             <div class="column is-full">
               <div class="field">
-                <label class="label" for="password">Confirm Password</label>
+                <label class="label" for="password_confirmation">Confirm Password</label>
                 <div class="control">
                   <input
-                      id="password_confirm"
+                      id="password_confirmation"
                       class="input"
-                      type="password_confirm"
+                      type="password"
                       placeholder="Confirm Password"
-                      v-model="password_confirm"
+                      v-model="password_confirmation"
                       @keyup.enter="register"
                   >
                 </div>
@@ -210,7 +222,7 @@ function validateForm() {
             <div class="column is-full">
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-info" :class="{ 'is-loading': is_loading }" @click="login" data-test="login-button">Login</button>
+                  <button class="button is-info" :class="{ 'is-loading': is_loading }" @click="register" data-test="login-button">Sign Up</button>
                 </div>
               </div>
             </div>
