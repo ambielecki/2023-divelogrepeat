@@ -1,4 +1,5 @@
-import {useUserStore} from "../stores/user";
+import { useUserStore } from "../stores/user";
+import { useAlertStore } from "../stores/alert";
 
 export async function useAsyncGet(url, with_auth = false) {
     const userStore = useUserStore();
@@ -21,7 +22,7 @@ export async function useAsyncGet(url, with_auth = false) {
     try {
         return await fetch(url, options);
     } catch (error) {
-        console.log('Error');
+        useAlertStore().addAlert('Something went wrong, please try again. If you continue to see this message, please contact support.', useAlertStore().danger);
 
         return null;
     }

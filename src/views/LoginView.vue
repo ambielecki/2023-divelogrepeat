@@ -1,5 +1,6 @@
 <script setup>
   import { useUserStore } from "../stores/user";
+  import { useAlertStore } from "../stores/alert";
   import { ref, computed } from 'vue';
   import AuthProvider from "../providers/AuthProvider";
   import validationProvider from "../providers/ValidationProvider";
@@ -31,13 +32,12 @@
   async function login() {
     is_loading.value = true;
     hide_login.value = false;
-    errors.value = {
-      email: [],
-      password: [],
-    }
 
-    if (!validationProvider.validateEmail(email.value)) {
-      errors.value.email.push('Must be a valid email.')
+    validateForm();
+
+    if (has_errors.value) {
+      is_loading.value = false;
+      return
     }
 
     const response = await AuthProvider.login({
@@ -55,13 +55,36 @@
           is_logged_in: true,
         });
 
+        useAlertStore().addAlert('Successfully Logged In');
+
         router.push({ name: 'home' });
       }
     }
 
     is_loading.value = false;
+  }
 
-    console.log(response);
+  function validateForm() {
+    errors.value = {
+      email: [],
+      password: [],
+    }
+
+    if (!email.value) {
+      errors.value.email.push('Email is required.');
+    }
+
+    if (!validationProvider.validateEmail(email.value)) {
+      errors.value.email.push('Must be a valid email.');
+    }
+
+    if (!password.value) {
+      errors.value.password.push('Password is required.');
+    }
+
+    if (!validationProvider.validateLength(password.value, 8)) {
+      errors.value.password.push('Password must be at least 8 characters.');
+    }
   }
 </script>
 
@@ -88,9 +111,11 @@
                       @keyup.enter="login"
                   >
                 </div>
-<!--                <p class="help is-danger" v-if="$v.email.$anyError">-->
-<!--                  Email is required and must be in a valid format-->
-<!--                </p>-->
+                <div>
+                  <p class="help is-danger" v-for="(error, index) in errors.email ">
+                    {{ error }}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -107,9 +132,9 @@
                       @keyup.enter="login"
                   >
                 </div>
-<!--                <p class="help is-danger" v-if="$v.password.$anyError">-->
-<!--                  Password is required-->
-<!--                </p>-->
+                <p class="help is-danger" v-for="(error, index) in errors.password ">
+                  {{ error }}
+                </p>
               </div>
             </div>
           </div>

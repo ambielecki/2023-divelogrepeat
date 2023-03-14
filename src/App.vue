@@ -1,6 +1,7 @@
 <script setup>
   import { RouterLink, RouterView } from 'vue-router'
   import TopNav from "./components/TopNav.vue";
+  import Alerts from "./components/Alerts.vue";
 </script>
 
 <style scoped>
@@ -11,6 +12,7 @@
 
 <template>
   <TopNav />
+  <Alerts />
   <div class="container app_container">
     <RouterView />
   </div>
