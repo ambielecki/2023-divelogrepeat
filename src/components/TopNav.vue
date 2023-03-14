@@ -1,7 +1,7 @@
 <script setup>
   import { onMounted } from "vue";
   import { useUserStore } from "../stores/user";
-  import AuthProvider from "../providers/AuthProvider";
+  import { useAlertStore } from "../stores/alert";
   import authProvider from "../providers/AuthProvider";
   import { ref } from 'vue';
 
@@ -37,6 +37,8 @@
     });
 
     is_loading.value = false;
+
+    useAlertStore().addAlert('Successfully Logged Out.')
   }
 </script>
 
@@ -60,9 +62,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
             <div v-if="!userStore.is_logged_in" class="buttons">
-              <a class="button is-info is-light">
-                <strong>Sign up</strong>
-              </a>
+              <router-link :to="{ name: 'register' }" class="button is-info is-light"><strong>Sign Up</strong></router-link>
               <router-link :to="{ name: 'login' }" class="button is-info is-light"><strong>Log In</strong></router-link>
             </div>
             <div v-else="userStore.is_logged_in" class="buttons">
