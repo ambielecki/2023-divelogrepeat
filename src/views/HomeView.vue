@@ -1,9 +1,19 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+  import { onMounted, ref } from "vue";
+  import PageProvider from "../providers/PageProvider";
+
+  let page = ref({});
+
+  onMounted(() => {
+    PageProvider.getHomePage()
+        .then((results) => {
+          page.value = results;
+        });
+  });
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <div v-if="page.content">Test</div>
   </main>
 </template>
