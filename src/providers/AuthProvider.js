@@ -19,6 +19,12 @@ class AuthProvider {
         return await diveLogApiProvider.processApiResponse(response);
     }
 
+    async register(body) {
+        const response = await useAsyncPost(this.base_api + '/register', body);
+
+        return await diveLogApiProvider.processApiResponse(response);
+    }
+
     async getUser() {
         const response = await useAsyncGet(this.base_api + '/user', true);
 
