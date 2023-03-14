@@ -2,11 +2,28 @@
   import { useUserStore } from "../stores/user";
   import { ref, computed } from 'vue';
   import AuthProvider from "../providers/AuthProvider";
+  import validationProvider from "../providers/ValidationProvider";
   import router from "../router";
 
   const userStore = useUserStore();
   const password = ref('');
-  const input_email = ref('');
+  const email = ref('');
+  const errors = ref({
+    email: [],
+    password: [],
+  })
+
+  const has_errors = computed(() => {
+    let return_value = false;
+    for (const field in errors.value) {
+      if (errors.value[field].length > 0) {
+        return_value = true;
+        break;
+      }
+    }
+
+    return return_value;
+  })
 
   const hide_login = ref(userStore.is_logged_in);
   const is_loading = ref(false);
@@ -14,8 +31,17 @@
   async function login() {
     is_loading.value = true;
     hide_login.value = false;
+    errors.value = {
+      email: [],
+      password: [],
+    }
+
+    if (!validationProvider.validateEmail(email.value)) {
+      errors.value.email.push('Must be a valid email.')
+    }
+
     const response = await AuthProvider.login({
-      email: input_email.value,
+      email: email.value,
       password: password.value,
     });
 
@@ -58,7 +84,7 @@
                       class="input"
                       type="text"
                       placeholder="Email Address"
-                      v-model="input_email"
+                      v-model="email"
                       @keyup.enter="login"
                   >
                 </div>
