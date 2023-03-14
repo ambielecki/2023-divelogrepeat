@@ -1,14 +1,14 @@
-import {useUserStore} from "../stores/user";
+import { useUserStore } from "../stores/user";
 
-export async function useAsyncGet(url, with_auth = false) {
+export async function useAsyncPost(url, body, with_auth = false) {
     const userStore = useUserStore();
 
     let options = {
-        method: "GET",
+        method: "POST",
+        body: JSON.stringify(body),
     };
 
     if (with_auth) {
-        console.log(userStore.access_token);
         options.headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + userStore.access_token
