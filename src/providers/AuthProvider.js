@@ -10,6 +10,10 @@ class AuthProvider {
         return await useAsyncPost(this.base_api + '/login', body);
     }
 
+    async logout() {
+        return await useAsyncPost(this.base_api + '/logout', {}, true);
+    }
+
     async getUser() {
         return await useAsyncGet(this.base_api + '/user', true);
     };

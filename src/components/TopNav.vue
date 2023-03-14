@@ -1,8 +1,12 @@
 <script setup>
   import { onMounted } from "vue";
   import { useUserStore } from "../stores/user";
+  import AuthProvider from "../providers/AuthProvider";
+  import authProvider from "../providers/AuthProvider";
+  import { ref } from 'vue';
 
   const userStore = useUserStore();
+  const is_loading = ref(false);
 
   onMounted(() => {
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -23,7 +27,16 @@
   });
 
   async function logOut() {
-    console.log('log out');
+    is_loading.value = true;
+    await authProvider.logout();
+
+    userStore.$patch({
+      user: {},
+      access_token: '',
+      is_logged_in: false,
+    });
+
+    is_loading.value = false;
   }
 </script>
 
@@ -53,7 +66,7 @@
               <router-link :to="{ name: 'login' }" class="button is-info is-light"><strong>Log In</strong></router-link>
             </div>
             <div v-else="userStore.is_logged_in" class="buttons">
-              <div @click="logOut" class="button is-info is-light">
+              <div @click="logOut" class="button is-info is-light" :class="{ 'is-loading': is_loading }">
                 <strong>Log Out</strong>
               </div>
             </div>
