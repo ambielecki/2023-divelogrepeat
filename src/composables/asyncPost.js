@@ -20,18 +20,7 @@ export async function useAsyncPost(url, body, with_auth = false) {
     }
 
     try {
-        const response = await fetch(url, options);
-
-        if (response?.ok) {
-            const json = await response.json();
-
-            return json.data;
-        } else {
-            const json = await response.json();
-            console.log(`HTTP Response Code: ${response?.status} ` + json.message)
-
-            return null;
-        }
+        return await fetch(url, options);
     } catch (error) {
         console.log('Error');
 

@@ -1,4 +1,5 @@
 import { useAsyncGet } from "../composables/asyncGet";
+import diveLogApiProvider from "./DiveLogApiProvider";
 
 class CalculatorProvider {
     constructor() {
@@ -16,7 +17,9 @@ class CalculatorProvider {
             filtered_query_params[query_param] = params[query_param];
         }
 
-        return await useAsyncGet(this.base_api + '/dive-calculation?' + new URLSearchParams(filtered_query_params).toString());
+        const response = await useAsyncGet(this.base_api + '/dive-calculation?' + new URLSearchParams(filtered_query_params).toString());
+
+        return diveLogApiProvider.processApiResponse(response);
     }
 }
 

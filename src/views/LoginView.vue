@@ -1,12 +1,12 @@
 <script setup>
   import { useUserStore } from "../stores/user";
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import AuthProvider from "../providers/AuthProvider";
   import router from "../router";
 
   const userStore = useUserStore();
   const password = ref('');
-  const email = ref('');
+  const input_email = ref('');
 
   const hide_login = ref(userStore.is_logged_in);
   const is_loading = ref(false);
@@ -15,7 +15,7 @@
     is_loading.value = true;
     hide_login.value = false;
     const response = await AuthProvider.login({
-      email: email.value,
+      email: input_email.value,
       password: password.value,
     });
 
@@ -58,7 +58,7 @@
                       class="input"
                       type="text"
                       placeholder="Email Address"
-                      v-model="email"
+                      v-model="input_email"
                       @keyup.enter="login"
                   >
                 </div>

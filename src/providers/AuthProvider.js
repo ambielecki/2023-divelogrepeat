@@ -1,5 +1,6 @@
 import { useAsyncPost } from "../composables/asyncPost";
-import {useAsyncGet} from "../composables/asyncGet";
+import { useAsyncGet } from "../composables/asyncGet";
+import diveLogApiProvider from "./DiveLogApiProvider";
 
 class AuthProvider {
     constructor() {
@@ -7,15 +8,21 @@ class AuthProvider {
     }
 
     async login(body) {
-        return await useAsyncPost(this.base_api + '/login', body);
+       const response = await useAsyncPost(this.base_api + '/login', body);
+
+       return await diveLogApiProvider.processApiResponse(response);
     }
 
     async logout() {
-        return await useAsyncPost(this.base_api + '/logout', {}, true);
+        const response = await useAsyncPost(this.base_api + '/logout', {}, true);
+
+        return await diveLogApiProvider.processApiResponse(response);
     }
 
     async getUser() {
-        return await useAsyncGet(this.base_api + '/user', true);
+        const response = await useAsyncGet(this.base_api + '/user', true);
+
+        return await diveLogApiProvider.processApiResponse(response);
     };
 }
 
