@@ -8,7 +8,12 @@
   const password = ref('');
   const email = ref('');
 
+  const hide_login = ref(userStore.is_logged_in);
+  const is_loading = ref(false);
+
   async function login() {
+    is_loading.value = true;
+    hide_login.value = false;
     const response = await AuthProvider.login({
       email: email.value,
       password: password.value,
@@ -24,16 +29,18 @@
           is_logged_in: true,
         });
 
-        router.push({ name: 'home' })
+        router.push({ name: 'home' });
       }
     }
+
+    is_loading.value = false;
 
     console.log(response);
   }
 </script>
 
 <template>
-  <div v-if="userStore.is_logged_in">
+  <div v-if="hide_login">
     You are already logged in
   </div>
   <div v-else class="columns is-centered">
@@ -85,7 +92,7 @@
             <div class="column is-full">
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-info" @click="login" data-test="login-button">Login</button>
+                  <button class="button is-info" :class="{ 'is-loading': is_loading }" @click="login" data-test="login-button">Login</button>
                 </div>
               </div>
             </div>

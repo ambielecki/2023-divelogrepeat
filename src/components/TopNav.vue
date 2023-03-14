@@ -1,5 +1,8 @@
 <script setup>
   import { onMounted } from "vue";
+  import { useUserStore } from "../stores/user";
+
+  const userStore = useUserStore();
 
   onMounted(() => {
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -18,6 +21,10 @@
       });
     });
   });
+
+  async function logOut() {
+    console.log('log out');
+  }
 </script>
 
 <template>
@@ -39,12 +46,17 @@
 
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-info is-light">
-              <strong>Sign up</strong>
-            </a>
-            <router-link :to="{ name: 'login' }" class="button is-info is-light"><strong>Log In</strong></router-link>
-          </div>
+            <div v-if="!userStore.is_logged_in" class="buttons">
+              <a class="button is-info is-light">
+                <strong>Sign up</strong>
+              </a>
+              <router-link :to="{ name: 'login' }" class="button is-info is-light"><strong>Log In</strong></router-link>
+            </div>
+            <div v-else="userStore.is_logged_in" class="buttons">
+              <div @click="logOut" class="button is-info is-light">
+                <strong>Log Out</strong>
+              </div>
+            </div>
         </div>
       </div>
     </div>
