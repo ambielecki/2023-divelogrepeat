@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from "../stores/user";
 import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
@@ -23,6 +24,16 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('../views/RegisterView.vue')
+    },
+    {
+      path: '/dive-log',
+      name: 'dive_log',
+      component: () => import('../views/diveLog/DiveLogListView.vue'),
+      beforeEnter: (to, fromkl) => {
+        if (!useUserStore().is_logged_in) {
+          return false;
+        }
+      }
     },
   ]
 })

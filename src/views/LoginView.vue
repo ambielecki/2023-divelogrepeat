@@ -47,6 +47,7 @@
 
     if (response) {
       userStore.access_token = response.access_token;
+      userStore.setExpiresAt(response.expires_in)
 
       const user = await AuthProvider.getUser();
       if (user) {
