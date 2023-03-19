@@ -30,6 +30,14 @@ export const useUserStore = defineStore('user', () => {
         return expires_at.value - time;
     }
 
+    function reset() {
+        user.value = {};
+        access_token.value = '';
+        expires_at.value = new Date().getTime();
+        is_logged_in.value = false;
+        has_checked_session.value = false;
+    }
+
     return {
         user,
         access_token,
@@ -39,5 +47,6 @@ export const useUserStore = defineStore('user', () => {
         setExpiresAt,
         getMillisecondsUntilExpiration,
         setToken,
+        reset,
     };
 });

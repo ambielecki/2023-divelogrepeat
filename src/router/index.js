@@ -34,6 +34,16 @@ const router = createRouter({
                 if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
                     return false;
                 }
+            },
+        },
+        {
+            path: '/dive-log-view/:id',
+            name: 'dive_log_view',
+            component: () => import('../views/diveLog/DiveLogView.vue'),
+            beforeEnter: (to, from) => {
+                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                    return false;
+                }
             }
         },
     ]
