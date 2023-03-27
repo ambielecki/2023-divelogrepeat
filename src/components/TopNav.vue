@@ -28,12 +28,15 @@
 
   async function logOut() {
     is_loading.value = true;
-    await authProvider.logout();
+    if (userStore.getMillisecondsUntilExpiration() > 0) {
+      await authProvider.logout();
+    }
 
     userStore.$patch({
       user: {},
       access_token: '',
       is_logged_in: false,
+      expires_at: new Date().getTime(),
     });
 
     is_loading.value = false;
@@ -57,19 +60,22 @@
     <div id="divelog_navbar" class="navbar-menu">
       <div class="navbar-start">
         <router-link :to="{ name: 'dive_calculator' }" class="navbar-item">Dive Calculator</router-link>
+        <Transition>
+          <router-link v-if="userStore.is_logged_in" :to="{ name: 'dive_log' }" class="navbar-item">Dive Log</router-link>
+        </Transition>
       </div>
 
       <div class="navbar-end">
         <div class="navbar-item">
-            <div v-if="!userStore.is_logged_in" class="buttons">
-              <router-link :to="{ name: 'register' }" class="button is-info is-light"><strong>Sign Up</strong></router-link>
-              <router-link :to="{ name: 'login' }" class="button is-info is-light"><strong>Log In</strong></router-link>
+          <div v-if="!userStore.is_logged_in" class="buttons">
+            <router-link :to="{ name: 'register' }" class="button is-info is-light"><strong>Sign Up</strong></router-link>
+            <router-link :to="{ name: 'login' }" class="button is-info is-light"><strong>Log In</strong></router-link>
+          </div>
+          <div v-else class="buttons">
+            <div @click="logOut" class="button is-info is-light" :class="{ 'is-loading': is_loading }">
+              <strong>Log Out</strong>
             </div>
-            <div v-else="userStore.is_logged_in" class="buttons">
-              <div @click="logOut" class="button is-info is-light" :class="{ 'is-loading': is_loading }">
-                <strong>Log Out</strong>
-              </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>

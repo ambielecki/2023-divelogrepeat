@@ -46,9 +46,14 @@
     });
 
     if (response) {
-      userStore.access_token = response.access_token;
+      userStore.setToken(response.access_token, response.expires_in);
 
-      const user = await AuthProvider.getUser();
+      let user = response?.user;
+
+      if (!user) {
+        user = await AuthProvider.getUser();
+      }
+
       if (user) {
         userStore.$patch({
           user: user,
