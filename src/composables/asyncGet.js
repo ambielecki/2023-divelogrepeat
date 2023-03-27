@@ -1,5 +1,6 @@
 import { useUserStore } from "../stores/user";
 import { useAlertStore } from "../stores/alert";
+import { addHeaders } from "./addHeaders";
 
 export async function useAsyncGet(url, with_auth = false) {
     const userStore = useUserStore();
@@ -8,16 +9,7 @@ export async function useAsyncGet(url, with_auth = false) {
         method: "GET",
     };
 
-    if (with_auth) {
-        options.headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + userStore.access_token
-        };
-    } else {
-        options.headers = {
-            "Content-Type": "application/json",
-        };
-    }
+    options = addHeaders(options, with_auth);
 
     try {
         return await fetch(url, options);

@@ -28,7 +28,9 @@
 
   async function logOut() {
     is_loading.value = true;
-    await authProvider.logout();
+    if (userStore.getMillisecondsUntilExpiration() > 0) {
+      await authProvider.logout();
+    }
 
     userStore.$patch({
       user: {},

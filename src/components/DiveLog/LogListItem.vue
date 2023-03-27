@@ -8,7 +8,7 @@
   }
 
   .dive_item:hover {
-    box-shadow: 0 0.75em 1.5em -0.250em #0a0a0a1a, 0 0 0 1px #0a0a0a05;
+    box-shadow: 0 0.75em 1.5em -0.250em #3e8ed0, 0 0 0 1px #0a0a0a05;
   }
 </style>
 

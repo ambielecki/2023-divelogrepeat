@@ -20,17 +20,31 @@
   });
 
   const display = computed(() => {
-    let pages = [];
-    if (props.pages < 5) {
-        for (let display_page = 1; display_page <= props.pages; display_page++) {
-          pages.push(display_page)
-        }
+    let not_filled = true;
+    let check_page = props.current_page - 2;
+    let display_pages = [];
+    while (not_filled) {
+      if (check_page > 0 && check_page <= props.pages) {
+        display_pages.push(check_page);
+      }
+      check_page++;
+      if (display_pages.length >= 5 || check_page === props.pages) {
+        not_filled = false;
+      }
+    }
+
+    if (display_pages.includes(2) && !display_pages.includes(1)) {
+      display_pages.unshift(1);
+    }
+
+    if (display_pages.includes(props.pages - 1) && !display_pages.includes(props.pages)) {
+      display_pages.push(props.pages);
     }
 
     return {
-      pages: pages,
-      starting_ellipsis: false,
-      ending_ellipsis: false,
+      pages: display_pages,
+      starting_ellipsis: !display_pages.includes(1) && display_pages.length > 0,
+      ending_ellipsis: !display_pages.includes(props.pages) && display_pages.length > 0,
     }
   });
 </script>

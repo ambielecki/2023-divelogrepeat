@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "bulma": "^0.9.4",
+    "bulma-calendar": "^6.1.19",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
