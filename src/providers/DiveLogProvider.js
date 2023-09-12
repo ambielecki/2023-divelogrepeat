@@ -20,25 +20,31 @@ class DiveLogProvider {
 
         const response = await useAsyncGet(this.base_api + '/dive-log?' + new URLSearchParams(filtered_query_params).toString(), true);
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
+    async getDetails(id) {
+        const response = await useAsyncGet(this.base_api + '/dive-log/' + id, true);
+
+        return diveLogApiProvider.processApiResponse(response);
     }
 
     async getMaxDive() {
         const response = await useAsyncGet(this.base_api + '/dive-log/max-dive-number', true);
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
     }
 
     async getLastPressureGroup() {
         const response = await useAsyncGet(this.base_api + '/dive-log/last-dive-pg', true);
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
     }
 
     async postCreate(body) {
         const response = await useAsyncPost(this.base_api + '/dive-log', body, true);
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
     }
 }
 

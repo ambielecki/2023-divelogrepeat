@@ -21,20 +21,20 @@
 
   async function getList() {
     is_loading.value = true;
-    await DiveLogProvider.getList({
+    const results = await DiveLogProvider.getList({
       sort: sort.value,
       sort_direction: sort_direction.value,
       page: page.value,
       limit: limit.value,
-    })
-        .then((results) => {
-          dive_logs.value = results.dive_logs;
-          page.value = results.page;
-          pages.value = results.pages;
-          limit.value = results.limit;
+    });
+    if (results) {
+      dive_logs.value = results.dive_logs;
+      page.value = parseInt(results.page);
+      pages.value = parseInt(results.pages);
+      limit.value = parseInt(results.limit);
+    }
 
-          is_loading.value = false;
-        });
+    is_loading.value = false;
 
     return true;
   }

@@ -1,7 +1,13 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import {useUserStore} from "../stores/user";
+import {useUserStore} from "@/stores/user";
 import HomeView from '../views/HomeView.vue'
 import AuthProvider from "../providers/AuthProvider";
+import DiveCalculator from "@/views/DiveCalculator.vue";
+import LoginView from "@/views/LoginView.vue";
+import RegisterView from "@/views/RegisterView.vue";
+import DiveLogListView from "@/views/diveLog/DiveLogListView.vue";
+import DiveLogView from "@/views/diveLog/DiveLogView.vue";
+import DiveLogCreate from "@/views/diveLog/DiveLogCreate.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,22 +20,22 @@ const router = createRouter({
         {
             path: '/dive-calculator',
             name: 'dive_calculator',
-            component: () => import('../views/DiveCalculator.vue')
+            component: DiveCalculator,
         },
         {
             path: '/login',
             name: 'login',
-            component: () => import('../views/LoginView.vue')
+            component: LoginView,
         },
         {
             path: '/register',
             name: 'register',
-            component: () => import('../views/RegisterView.vue')
+            component: RegisterView,
         },
         {
             path: '/dive-log',
             name: 'dive_log',
-            component: () => import('../views/diveLog/DiveLogListView.vue'),
+            component: DiveLogListView,
             beforeEnter: (to, from) => {
                 if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
                     return false;
@@ -39,7 +45,7 @@ const router = createRouter({
         {
             path: '/dive-log-view/:id',
             name: 'dive_log_view',
-            component: () => import('../views/diveLog/DiveLogView.vue'),
+            component: DiveLogView,
             beforeEnter: (to, from) => {
                 if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
                     return false;
@@ -49,7 +55,7 @@ const router = createRouter({
         {
             path: '/dive-log-create',
             name: 'dive_log_create',
-            component: () => import('../views/diveLog/DiveLogCreate.vue'),
+            component: DiveLogCreate,
             beforeEnter: (to, from) => {
                 if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
                     return false;
@@ -57,6 +63,6 @@ const router = createRouter({
             }
         },
     ]
-})
+});
 
-export default router
+export default router;

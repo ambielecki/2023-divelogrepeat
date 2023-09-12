@@ -1,52 +1,52 @@
 <script setup>
-  import { computed } from "vue";
+import { computed } from "vue";
 
-  const props = defineProps(['current_page', 'pages', 'route']);
+const props = defineProps(['current_page', 'pages', 'route']);
 
-  const is_first_page = computed(() => {
-    return props.current_page === 1;
-  });
+const is_first_page = computed(() => {
+  return props.current_page === 1;
+});
 
-  const is_last_page = computed(() => {
-    return props.current_page === props.pages;
-  });
+const is_last_page = computed(() => {
+  return props.current_page === props.pages;
+});
 
-  const previous_page = computed(() => {
-    return props.current_page - 1;
-  });
+const previous_page = computed(() => {
+  return props.current_page - 1;
+});
 
-  const next_page = computed(() => {
-    return props.current_page + 1;
-  });
+const next_page = computed(() => {
+  return props.current_page + 1;
+});
 
-  const display = computed(() => {
-    let not_filled = true;
-    let check_page = props.current_page - 2;
-    let display_pages = [];
-    while (not_filled) {
-      if (check_page > 0 && check_page <= props.pages) {
-        display_pages.push(check_page);
-      }
-      check_page++;
-      if (display_pages.length >= 5 || check_page === props.pages) {
-        not_filled = false;
-      }
+const display = computed(() => {
+  let not_filled = true;
+  let check_page = props.current_page - 2;
+  let display_pages = [];
+  while (not_filled) {
+    if (check_page > 0 && check_page <= props.pages) {
+      display_pages.push(check_page);
     }
-
-    if (display_pages.includes(2) && !display_pages.includes(1)) {
-      display_pages.unshift(1);
+    check_page++;
+    if (display_pages.length >= 5 || check_page === props.pages) {
+      not_filled = false;
     }
+  }
 
-    if (display_pages.includes(props.pages - 1) && !display_pages.includes(props.pages)) {
-      display_pages.push(props.pages);
-    }
+  if (display_pages.includes(2) && !display_pages.includes(1)) {
+    display_pages.unshift(1);
+  }
 
-    return {
-      pages: display_pages,
-      starting_ellipsis: !display_pages.includes(1) && display_pages.length > 0,
-      ending_ellipsis: !display_pages.includes(props.pages) && display_pages.length > 0,
-    }
-  });
+  if (display_pages.includes(props.pages - 1) && !display_pages.includes(props.pages)) {
+    display_pages.push(props.pages);
+  }
+
+  return {
+    pages: display_pages,
+    starting_ellipsis: !display_pages.includes(1) && display_pages.length > 0,
+    ending_ellipsis: !display_pages.includes(props.pages) && display_pages.length > 0,
+  }
+});
 </script>
 
 <template>
@@ -93,6 +93,9 @@
       </li>
 
       <li v-if="display.ending_ellipsis">
+        <span class="pagination-ellipsis">&hellip;</span>
+      </li>
+      <li v-if="display.ending_ellipsis">
         <a
             class="pagination-link"
             aria-label="Goto page {{ props.pages }}"
@@ -100,9 +103,6 @@
         >
           {{ props.pages }}
         </a>
-      </li>
-      <li v-if="display.ending_ellipsis">
-        <span class="pagination-ellipsis">&hellip;</span>
       </li>
     </ul>
   </nav>
