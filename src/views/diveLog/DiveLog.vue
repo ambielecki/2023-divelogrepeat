@@ -8,9 +8,17 @@
 
   const route = useRoute();
   const is_loading = ref(true);
+  const max_dive = ref(0);
 
   onMounted(() => {
     getDetails();
+
+    DiveLogProvider.getMaxDive()
+        .then((response) => {
+          if (response?.max_dive) {
+            max_dive.value = response.max_dive;
+          }
+        });
   });
 
   const dive_log = ref({});
@@ -66,7 +74,7 @@
       <LoadingCard />
     </div>
     <LogView v-if="!is_loading && !is_editting" :dive_log="dive_log" @edit="handleEdit"></LogView>
-    <LogForm v-if="!is_loading && is_editting" :dive_log="dive_log" @cancel="handleCancel" @save="handleSave"></LogForm>
+    <LogForm v-if="!is_loading && is_editting" :dive_log="dive_log" :max_dive="max_dive" @cancel="handleCancel" @save="handleSave"></LogForm>
   </div>
 </template>
 

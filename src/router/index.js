@@ -2,6 +2,9 @@ import {createRouter, createWebHistory} from 'vue-router'
 import {useUserStore} from "../stores/user";
 import HomeView from '../views/HomeView.vue'
 import AuthProvider from "../providers/AuthProvider";
+import DiveCalculator from "@/views/DiveCalculator.vue";
+import LoginView from "@/views/LoginView.vue";
+import RegisterView from "@/views/RegisterView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,17 +17,17 @@ const router = createRouter({
         {
             path: '/dive-calculator',
             name: 'dive_calculator',
-            component: () => import('../views/DiveCalculator.vue')
+            component: DiveCalculator,
         },
         {
             path: '/login',
             name: 'login',
-            component: () => import('../views/LoginView.vue')
+            component: LoginView,
         },
         {
             path: '/register',
             name: 'register',
-            component: () => import('../views/RegisterView.vue')
+            component: RegisterView,
         },
         {
             path: '/dive-log',

@@ -1,7 +1,7 @@
 <script setup>
-  import {onMounted} from "vue";
+import {computed, onMounted} from "vue";
 
-  const props = defineProps(['dive_log']);
+  const props = defineProps(['dive_log', 'max_dive']);
   const emit = defineEmits(['cancel, save']);
 
   function cancel() {
@@ -11,6 +11,10 @@
   function save() {
     emit('save');
   }
+
+  const next_dive = computed(() => {
+    return 'Next Dive: ' + (parseInt(props.max_dive) + 1).toString();
+  })
 </script>
 
 <template>
@@ -36,7 +40,7 @@
                             name="dive_number"
                             type="text"
                             v-model="dive_log.dive_number"
-                            placeholder="Dive Number"
+                            :placeholder="next_dive"
                         >
                       </div>
                     </div>
@@ -133,7 +137,7 @@
                         name="date_time"
                         type="text"
                         v-model="dive_log.date_time"
-                        placeholder="Date and Time"
+                        placeholder="YYYY-MM-DD HH:MM:SS AM"
                     >
                   </div>
                 </div>
@@ -241,7 +245,7 @@
                     <label class="label" for="notes">
                       <div class="field">
                         <div class="control">
-                          <textarea class="textarea is-large" name="notes" v-model="dive_log.notes"></textarea>
+                          <textarea class="textarea is-medium" name="notes" v-model="dive_log.notes"></textarea>
                         </div>
                       </div>
                     </label>
@@ -264,7 +268,7 @@
                     <label class="label" for="description">
                       <div class="field">
                         <div class="control">
-                          <textarea class="textarea is-large" name="description" v-model="dive_log.description"></textarea>
+                          <textarea class="textarea is-medium" name="description" v-model="dive_log.description"></textarea>
                         </div>
                       </div>
                     </label>

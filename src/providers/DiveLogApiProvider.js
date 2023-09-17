@@ -1,4 +1,4 @@
-import { useAlertStore } from "../stores/alert";
+import { useAlertStore } from "@/stores/alert";
 
 class DiveLogApiProvider {
     async processApiResponse(response) {

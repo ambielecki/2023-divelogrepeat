@@ -31,7 +31,7 @@ class DiveLogProvider {
     }
 
     async getMaxDive() {
-        const response = await useAsyncGet(this.base_api + '/dive-log/max-dive-number', true);
+        const response = await useAsyncGet(this.base_api + '/dive-log/max-dive', true);
 
         return diveLogApiProvider.processApiResponse(response);
     }
