@@ -1,6 +1,7 @@
 import { useAsyncGet } from "../composables/asyncGet";
 import diveLogApiProvider from "./DiveLogApiProvider";
 import {useAsyncPost} from "../composables/asyncPost";
+import {useAsyncPut} from "@/composables/asyncPut";
 
 class DiveLogProvider {
     constructor() {
@@ -31,6 +32,12 @@ class DiveLogProvider {
 
     async getMaxDive() {
         const response = await useAsyncGet(this.base_api + '/dive-log/max-dive-number', true);
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
+    async putUpdateDetails(body, id) {
+        const response = await useAsyncPut(this.base_api + '/dive-log/' + id, body, true);
 
         return diveLogApiProvider.processApiResponse(response);
     }

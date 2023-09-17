@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import router from "@/router";
 
 export const useUserStore = defineStore('user', () => {
     const user = ref({});
@@ -30,6 +31,18 @@ export const useUserStore = defineStore('user', () => {
         return expires_at.value - time;
     }
 
+    function logOut() {
+        user.value = {};
+        access_token.value = '';
+        is_logged_in.value = false;
+        expires_at.value = new Date().getTime();
+
+        window.localStorage.setItem('dive_expires_at', new Date().getTime().toString());
+        window.localStorage.setItem('dive_access_token', '');
+
+        router.push({ name: 'home' });
+    }
+
     function reset() {
         user.value = {};
         access_token.value = '';
@@ -44,9 +57,9 @@ export const useUserStore = defineStore('user', () => {
         expires_at,
         is_logged_in,
         has_checked_session,
-        setExpiresAt,
         getMillisecondsUntilExpiration,
         setToken,
         reset,
+        logOut,
     };
 });

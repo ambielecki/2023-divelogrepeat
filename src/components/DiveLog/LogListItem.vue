@@ -31,7 +31,7 @@
         </div>
         <div class="columns">
           <div class="column">
-            <p class="title is-6">Date: {{ dive_log.date_time }}</p>
+            <p class="title is-6">Date: {{ $filters.formatDate(dive_log.date_time) }}</p>
           </div>
         </div>
         <div class="columns">

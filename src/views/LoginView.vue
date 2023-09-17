@@ -1,6 +1,6 @@
 <script setup>
-  import { useUserStore } from "../stores/user";
-  import { useAlertStore } from "../stores/alert";
+  import { useUserStore } from "@/stores/user";
+  import { useAlertStore } from "@/stores/alert";
   import { ref, computed } from 'vue';
   import AuthProvider from "../providers/AuthProvider";
   import validationProvider from "../providers/ValidationProvider";

@@ -32,12 +32,7 @@
       await authProvider.logout();
     }
 
-    userStore.$patch({
-      user: {},
-      access_token: '',
-      is_logged_in: false,
-      expires_at: new Date().getTime(),
-    });
+    userStore.logOut();
 
     is_loading.value = false;
 

@@ -13,4 +13,12 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 
+app.config.globalProperties.$filters = {
+    formatDate(value) {
+        const date = new Date(value);
+
+        return date.toLocaleString('default')
+    }
+}
+
 app.mount('#app');
