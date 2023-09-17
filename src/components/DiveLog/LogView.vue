@@ -5,7 +5,7 @@
   const emit = defineEmits(['toggle_edit']);
 
   const computer_text = computed(() => {
-    return props.dive_log.used_computer === "1" ? 'Yes' : 'No';
+    return parseInt(props.dive_log.used_computer) === 1 ? 'Yes' : 'No';
   });
 
   function edit() {
