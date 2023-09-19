@@ -211,11 +211,11 @@ import {computed, onMounted} from "vue";
             </div>
 
             <div class="field is-horizontal">
-              <div class="field-label is-normal">
+              <div class="field-label">
                 <label class="label" for="used_computer">Computer</label>
               </div>
               <div class="field-body">
-                <div class="field">
+                <div class="field is-narrow">
                   <div class="control">
                     <label class="radio">
                       <input type="radio" name="used_computer" value="1" v-model="dive_log.used_computer">

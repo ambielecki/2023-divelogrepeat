@@ -48,20 +48,15 @@
     if (response) {
       userStore.setToken(response.access_token, response.expires_in);
 
-      let user = response?.user;
+      let user_response = await AuthProvider.getUser();
 
-      if (!user) {
-        user = await AuthProvider.getUser();
-      }
-
-      if (user) {
+      if (user_response) {
         userStore.$patch({
-          user: user,
+          user: response.user,
           is_logged_in: true,
         });
 
         useAlertStore().addAlert('Successfully Logged In');
-
         router.push({ name: 'home' });
       }
     }

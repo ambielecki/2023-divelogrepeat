@@ -31,6 +31,10 @@ export const useUserStore = defineStore('user', () => {
         return expires_at.value - time;
     }
 
+    function getIsAdmin() {
+        return user.value.is_admin;
+    }
+
     function logOut() {
         user.value = {};
         access_token.value = '';
@@ -61,5 +65,6 @@ export const useUserStore = defineStore('user', () => {
         setToken,
         reset,
         logOut,
+        getIsAdmin,
     };
 });

@@ -1,7 +1,7 @@
-import { useAsyncGet } from "../composables/asyncGet";
+import { useAsyncGet } from "@/composables/asyncGet";
 import diveLogApiProvider from "./DiveLogApiProvider";
-import {useAsyncPost} from "../composables/asyncPost";
-import {useAsyncPut} from "@/composables/asyncPut";
+import { useAsyncPost } from "@/composables/asyncPost";
+import { useAsyncPut } from "@/composables/asyncPut";
 
 class DiveLogProvider {
     constructor() {

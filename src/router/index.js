@@ -59,6 +59,16 @@ const router = createRouter({
                 }
             }
         },
+        {
+            path: '/admin/image/upload',
+            name: 'image_upload',
+            component: () => import('../views/admin/image/ImageUpload.vue'),
+            beforeEnter: (to, from) => {
+                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                    return false;
+                }
+            }
+        },
     ]
 })
 

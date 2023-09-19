@@ -1,5 +1,5 @@
-import { useUserStore } from "../stores/user";
-import { useAlertStore } from "../stores/alert";
+import { useUserStore } from "@/stores/user";
+import { useAlertStore } from "@/stores/alert";
 import { addHeaders } from "./addHeaders";
 
 export async function useAsyncGet(url, with_auth = false) {

@@ -15,6 +15,10 @@
     background-color: #3e8ed0;
     color: #fff;
   }
+
+  table > tr:last-child > td {
+    border-width: 0;
+  }
 </style>
 
 
