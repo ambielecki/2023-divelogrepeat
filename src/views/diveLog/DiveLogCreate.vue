@@ -9,12 +9,12 @@
     dive_number: null,
     location: '',
     dive_site: '',
-    date: '',
+    date_time: '',
     buddy: '',
     max_depth_ft: null,
     bottom_time_min: null,
     surface_interval_min: null,
-    used_computer: false,
+    used_computer: 0,
     description: '',
     notes: '',
     dive_details: {
@@ -41,7 +41,8 @@
         });
   });
 
-  async function handleSave() {
+  async function handleSave(form_data) {
+    dive_log.value = form_data;
     loading.value.log_dive = true;
     const response = await DiveLogProvider.postCreate(dive_log.value);
     loading.value.log_dive = false;
@@ -57,9 +58,9 @@
   }
 </script>
 
-<style scoped>
-</style>
-
 <template>
   <LogForm :dive_log="dive_log" :max_dive="max_dive" @cancel="handleCancel" @save="handleSave"></LogForm>
 </template>
+
+<style scoped>
+</style>

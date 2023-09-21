@@ -3,12 +3,19 @@ import { computed, onMounted, ref } from "vue";
 import { useAlertStore } from "@/stores/alert";
 import ImageProvider from "@/providers/ImageProvider";
 import router from "@/router";
+import TextInput from "@/components/FormFields/TextInput.vue";
+import RadioInput from "@/components/FormFields/RadioInput.vue";
+import TextAreaInput from "@/components/FormFields/TextAreaInput.vue";
   const is_loading = ref(false);
 
   const file = ref(null);
   const alt_tag = ref('');
   const description = ref('');
-  const is_hero = ref('0');
+  const is_hero = ref(0);
+  const hero_values = {
+    Yes: 1,
+    No: 0,
+  }
 
   const file_name = computed(() => {
     if (file.value) {
@@ -99,59 +106,24 @@ import router from "@/router";
         <div class="card-content">
           <p class="title">Image Details</p>
 
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="alt_tag">Alt Tag</label>
-            </div>
-
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                      class="input"
-                      name="alt_tag"
-                      type="text"
-                      v-model="alt_tag"
-                      placeholder="Description for alt tag"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="description">Description</label>
-            </div>
-
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <textarea class="textarea is-medium" name="description" v-model="description"></textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label">
-              <label class="label" for="is_hero">Hero</label>
-            </div>
-            <div class="field-body">
-              <div class="field is-narrow">
-                <div class="control">
-                  <label class="radio">
-                    <input type="radio" name="is_hero" value="1" v-model="is_hero">
-                    Yes
-                  </label>
-                  <label class="radio">
-                    <input type="radio" name="is_hero" value="0" v-model="is_hero">
-                    No
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TextInput
+            input_name="alt_tag"
+            input_label="Alt Tag"
+            input_placeholder="Description for alt tag"
+            v-model="alt_tag"
+          />
+          <TextAreaInput
+            input_label="Description"
+            input_name="description"
+            v-model="description"
+          >
+          </TextAreaInput>
+          <RadioInput
+            input_name="is_hero"
+            input_label="Hero"
+            :input_values="hero_values"
+            v-model="is_hero"
+          />
 
           <div class="field is-horizontal">
             <div class="field-label is-normal">
