@@ -1,9 +1,16 @@
 <script setup>
   import { computed, onMounted, ref } from "vue";
+  import TextInput from "@/components/FormFields/TextInput.vue";
+  import TextAreaInput from "@/components/FormFields/TextAreaInput.vue";
+  import RadioInput from "@/components/FormFields/RadioInput.vue";
 
   const props = defineProps(['dive_log', 'max_dive']);
   const emit = defineEmits(['cancel', 'save']);
   const form_data = ref({});
+  const computer_values = {
+    Yes: 1,
+    No: 0,
+  };
 
   function cancel() {
     emit('cancel');
@@ -32,25 +39,13 @@
           <div class="columns">
 
             <div class="column is-four-fifths">
-              <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label" for="dive_number">Dive #</label>
-                </div>
-
-                <div class="field-body">
-                  <div class="field">
-                    <div class="control">
-                      <input
-                          class="input"
-                          name="dive_number"
-                          type="text"
-                          v-model="form_data.dive_number"
-                          :placeholder="next_dive"
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <TextInput
+                input_label="Dive #"
+                input_name="dive_number"
+                :input_placeholder="next_dive"
+                v-model="form_data.dive_number"
+                has_title="true"
+              />
             </div>
 
             <div class="column is-one-fifth">
@@ -73,82 +68,30 @@
       <div class="card">
         <div class="card-content">
           <p class="title">Basic Information</p>
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="location">Location</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                      class="input"
-                      name="location"
-                      type="text"
-                      v-model="form_data.location"
-                      placeholder="Location"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="dive_number">Dive Site</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                      class="input"
-                      name="dive_number"
-                      type="text"
-                      v-model="form_data.dive_site"
-                      placeholder="Dive Site"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="buddy">Buddy</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                      class="input"
-                      name="buddy"
-                      type="text"
-                      v-model="form_data.buddy"
-                      placeholder="Buddy"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="date_time">Date Time</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                      class="input"
-                      name="date_time"
-                      type="text"
-                      v-model="form_data.date_time"
-                      placeholder="YYYY-MM-DD HH:MM:SS AM"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <TextInput
+              input_label="Location"
+              input_name="location"
+              input_placeholder="Location"
+              v-model="form_data.location"
+          />
+          <TextInput
+              input_label="Dive Site"
+              input_name="dive_site"
+              input_placeholder="Dive Site"
+              v-model="form_data.dive_site"
+          />
+          <TextInput
+              input_label="Buddy"
+              input_name="buddy"
+              input_placeholder="Buddy"
+              v-model="form_data.buddy"
+          />
+          <TextInput
+              input_label="Date Time"
+              input_name="date_Time"
+              input_placeholder="YYYY-MM-DD HH:MM:SS"
+              v-model="form_data.date_time"
+          />
         </div>
       </div>
     </div>
@@ -157,84 +100,30 @@
       <div class="card">
         <div class="card-content">
           <p class="title">Dive Details</p>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="max_depth_ft">Max Depth (ft)</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                      class="input"
-                      name="max_depth_ft"
-                      type="text"
-                      v-model="form_data.max_depth_ft"
-                      placeholder="Max Depth (ft)"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="bottom_time_min">Bottom Time (min)</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                      class="input"
-                      name="bottom_time_min"
-                      type="text"
-                      v-model="form_data.bottom_time_min"
-                      placeholder="Max Depth (ft)"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="surface_interval_min">Surface Interval (min)</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input
-                      class="input"
-                      name="surface_interval_min"
-                      type="text"
-                      v-model="form_data.surface_interval_min"
-                      placeholder="Surface Interval (min)"
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label">
-              <label class="label" for="used_computer">Computer</label>
-            </div>
-            <div class="field-body">
-              <div class="field is-narrow">
-                <div class="control">
-                  <label class="radio">
-                    <input type="radio" name="used_computer" value="1" v-model="form_data.used_computer">
-                    Yes
-                  </label>
-                  <label class="radio">
-                    <input type="radio" name="used_computer" value="0" v-model="form_data.used_computer">
-                    No
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <TextInput
+              input_label="Max Depth (ft)"
+              input_name="max_depth_ft"
+              input_placeholder="Max Depth (ft)"
+              v-model="form_data.max_depth_ft"
+          />
+          <TextInput
+              input_label="Bottom Time (min)"
+              input_name="bottom_time_min"
+              input_placeholder="Bottom Time (min)"
+              v-model="form_data.bottom_time_min"
+          />
+          <TextInput
+              input_label="Surface Interval (min)"
+              input_name="surface_interval_min"
+              input_placeholder="Surface Interval (min)"
+              v-model="form_data.surface_interval_min"
+          />
+          <RadioInput
+            input_name="computer"
+            input_label="Computer"
+            :input_values="computer_values"
+            v-model="form_data.used_computer"
+          />
         </div>
       </div>
     </div>
@@ -242,50 +131,25 @@
     <div class="column is-half">
       <div class="card">
         <div class="card-content">
-          <p class="title">Notes</p>
-          <div class="field is-horizontal">
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <label class="label" for="notes">
-                    <div class="field">
-                      <div class="control">
-                        <textarea class="textarea is-medium" name="notes" v-model="form_data.notes"></textarea>
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TextAreaInput
+            input_label="Notes"
+            input_name="notes"
+            v-model="form_data.notes"
+          ></TextAreaInput>
         </div>
       </div>
     </div>
-
     <div class="column is-half">
       <div class="card">
         <div class="card-content">
-          <p class="title">Description</p>
-          <div class="field is-horizontal">
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <label class="label" for="description">
-                    <div class="field">
-                      <div class="control">
-                          <textarea class="textarea is-medium" name="description"
-                                    v-model="form_data.description"></textarea>
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TextAreaInput
+              input_label="Description"
+              input_name="description"
+              v-model="form_data.description"
+          ></TextAreaInput>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 </template>
