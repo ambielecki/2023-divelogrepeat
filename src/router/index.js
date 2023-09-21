@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import {useUserStore} from "../stores/user";
+import {useUserStore} from "@/stores/user";
 import HomeView from '../views/HomeView.vue'
 import AuthProvider from "../providers/AuthProvider";
 import DiveCalculator from "@/views/DiveCalculator.vue";
@@ -63,6 +63,16 @@ const router = createRouter({
             path: '/admin/image/upload',
             name: 'image_upload',
             component: () => import('../views/admin/image/ImageUpload.vue'),
+            beforeEnter: (to, from) => {
+                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                    return false;
+                }
+            }
+        },
+        {
+            path: '/admin/image',
+            name: 'image_list',
+            component: () => import('../views/admin/image/ImageList.vue'),
             beforeEnter: (to, from) => {
                 if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
                     return false;

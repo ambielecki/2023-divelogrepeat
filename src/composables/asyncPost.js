@@ -1,10 +1,7 @@
-import { useUserStore } from "../stores/user";
-import { useAlertStore } from "../stores/alert";
+import { useAlertStore } from "@/stores/alert";
 import { addHeaders } from "./addHeaders";
 
 export async function useAsyncPost(url, body, with_auth = false) {
-    const userStore = useUserStore();
-
     let options = {
         method: "POST",
         body: JSON.stringify(body),

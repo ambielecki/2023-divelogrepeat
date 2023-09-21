@@ -1,8 +1,9 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import { useUserStore } from "@/stores/user";
-
-  const base_api = import.meta.env.VITE_API_URL;
+import { useAlertStore } from "@/stores/alert";
+import ImageProvider from "@/providers/ImageProvider";
+import router from "@/router";
+  const is_loading = ref(false);
 
   const file = ref(null);
   const alt_tag = ref('');
@@ -39,24 +40,22 @@ import { useUserStore } from "@/stores/user";
     }
   }
 
-  function handleUpload() {
+  async function handleUpload() {
+    is_loading.value = true;
     const form_data = new FormData();
     form_data.append('image_file', file.value);
     form_data.append('alt_tag', alt_tag.value);
     form_data.append('description', description.value);
     form_data.append('is_hero', is_hero.value);
 
-    fetch(base_api + '/admin/image', {
-      headers: {
-        "Accept": "application/json",
-        "Authorization": "Bearer " + useUserStore().access_token
-      },
-      method: 'POST',
-      body: form_data,
-    })
-        .then(response => {
-          console.log(response);
-        });
+    const response = await ImageProvider.postImage(form_data);
+
+    if (response) {
+      useAlertStore().addAlert('Image uploaded successfully');
+      router.push({ name: 'home' });
+    }
+
+    is_loading.value = false;
   }
 </script>
 

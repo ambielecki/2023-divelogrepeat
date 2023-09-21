@@ -9,7 +9,7 @@ class PageProvider {
     async getHomePage() {
         const response = await useAsyncGet(this.base_api + '/page/home');
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
     }
 }
 

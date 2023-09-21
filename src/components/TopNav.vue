@@ -1,12 +1,16 @@
 <script setup>
-  import { onMounted } from "vue";
-  import { useUserStore } from "../stores/user";
-  import { useAlertStore } from "../stores/alert";
+import { computed, onMounted } from "vue";
+  import { useUserStore } from "@/stores/user";
+  import { useAlertStore } from "@/stores/alert";
   import authProvider from "../providers/AuthProvider";
   import { ref } from 'vue';
 
   const userStore = useUserStore();
   const is_loading = ref(false);
+
+  const is_admin = computed(() => {
+    return useUserStore().user?.is_admin;
+  });
 
   onMounted(() => {
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -58,6 +62,18 @@
         <Transition>
           <router-link v-if="userStore.is_logged_in" :to="{ name: 'dive_log' }" class="navbar-item">Dive Log</router-link>
         </Transition>
+        <div v-if="is_admin" class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Admin
+          </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Home Page
+            </a>
+            <router-link :to="{ name: 'image_list' }" class="navbar-item">Images</router-link>
+          </div>
+        </div>
       </div>
 
       <div class="navbar-end">
@@ -76,3 +92,18 @@
     </div>
   </nav>
 </template>
+
+<style scoped>
+.navbar-item {
+  &.has-dropdown {
+    .navbar-dropdown {
+      display: none;
+    }
+    &.is-hoverable:hover {
+      .navbar-dropdown {
+        display: block;
+      }
+    }
+  }
+}
+</style>

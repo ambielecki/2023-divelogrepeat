@@ -11,31 +11,31 @@ class AuthProvider {
     async login(body) {
        const response = await useAsyncPost(this.base_api + '/login', body);
 
-       return await diveLogApiProvider.processApiResponse(response);
+       return diveLogApiProvider.processApiResponse(response);
     }
 
     async logout() {
         const response = await useAsyncPost(this.base_api + '/logout', {}, true);
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
     }
 
     async register(body) {
         const response = await useAsyncPost(this.base_api + '/register', body);
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
     }
 
     async refreshToken() {
         const response = await useAsyncPost(this.base_api + '/refresh', {}, true);
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
     }
 
     async getUser() {
         const response = await useAsyncGet(this.base_api + '/user', true);
 
-        return await diveLogApiProvider.processApiResponse(response);
+        return diveLogApiProvider.processApiResponse(response);
     }
 
     checkCachedToken() {
