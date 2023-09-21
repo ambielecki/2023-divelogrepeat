@@ -2,7 +2,7 @@
   import {computed} from "vue";
 
   const props = defineProps(['dive_log']);
-  const emit = defineEmits(['toggle_edit']);
+  const emit = defineEmits(['edit']);
 
   const computer_text = computed(() => {
     return parseInt(props.dive_log.used_computer) === 1 ? 'Yes' : 'No';

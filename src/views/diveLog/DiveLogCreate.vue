@@ -41,7 +41,8 @@
         });
   });
 
-  async function handleSave() {
+  async function handleSave(form_data) {
+    dive_log.value = form_data;
     loading.value.log_dive = true;
     const response = await DiveLogProvider.postCreate(dive_log.value);
     loading.value.log_dive = false;
