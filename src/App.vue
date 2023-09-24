@@ -38,9 +38,12 @@
 </style>
 
 <template>
+<div>
   <TopNav />
   <Alerts />
   <div class="container app_container">
     <RouterView />
   </div>
+</div>
+
 </template>

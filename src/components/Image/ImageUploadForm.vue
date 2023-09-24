@@ -1,17 +1,19 @@
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 import { useAlertStore } from "@/stores/alert";
 import ImageProvider from "@/providers/ImageProvider";
 import router from "@/router";
 import TextInput from "@/components/FormFields/TextInput.vue";
 import RadioInput from "@/components/FormFields/RadioInput.vue";
 import TextAreaInput from "@/components/FormFields/TextAreaInput.vue";
+import TagInput from "@/components/FormFields/TagInput.vue";
   const is_loading = ref(false);
 
   const file = ref(null);
   const alt_tag = ref('');
   const description = ref('');
   const is_hero = ref(0);
+  const tags = ref([]);
   const hero_values = {
     Yes: 1,
     No: 0,
@@ -54,12 +56,13 @@ import TextAreaInput from "@/components/FormFields/TextAreaInput.vue";
     form_data.append('alt_tag', alt_tag.value);
     form_data.append('description', description.value);
     form_data.append('is_hero', is_hero.value);
+    form_data.append('tags', tags.value);
 
     const response = await ImageProvider.postImage(form_data);
 
     if (response) {
       useAlertStore().addAlert('Image uploaded successfully');
-      router.push({ name: 'home' });
+      router.push({ name: 'image_list' });
     }
 
     is_loading.value = false;
@@ -124,6 +127,15 @@ import TextAreaInput from "@/components/FormFields/TextAreaInput.vue";
             :input_values="hero_values"
             v-model="is_hero"
           />
+          <div class="field">
+            <TagInput
+                input_name="tags"
+                input_label="Add Tag"
+                input_placeholder="Add Tags"
+                search_uri="/admin/tag"
+                v-model="tags"
+            />
+          </div>
 
           <div class="field is-horizontal">
             <div class="field-label is-normal">
