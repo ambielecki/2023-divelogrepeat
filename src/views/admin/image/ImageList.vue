@@ -3,6 +3,8 @@
   import ImageProvider from "@/providers/ImageProvider";
   import Pagination from "@/components/Pagination.vue";
   import ImageDetails from "@/components/Image/ImageDetails.vue";
+  import ImageEditForm from "@/components/Image/ImageEditForm.vue";
+  import imageProvider from "@/providers/ImageProvider";
 
   const base_image_path = import.meta.env.VITE_IMAGE_URL;
   const images = ref([]);
@@ -46,11 +48,15 @@
 
   function selectImage(id) {
     selected_image_id.value = id;
+    is_editing.value = false;
   }
 
   const selected_image = computed(() => {
     if (selected_image_id.value) {
-      return images.value.find((image) => image.id === selected_image_id.value);
+      const image = images.value.find((image) => image.id === selected_image_id.value);
+      image.tag_names = image.tags.map((tag) => tag.name);
+
+      return image;
     }
 
     return false;
@@ -63,6 +69,19 @@
   function handlePaginationNavigate(navigate_to) {
     page.value = navigate_to;
     getList();
+  }
+
+  function handleSave(image, tags) {
+    imageProvider.patchImage({
+      alt_tag: image.alt_tag,
+      description: image.description,
+      is_hero: image.is_hero,
+      tags: tags,
+    }, image.id)
+        .then(result => {
+          images.value = images.value.map(image => image.id == result.image.id ? result.image : image);
+          is_editing.value = false;
+        });
   }
 </script>
 
@@ -105,7 +124,7 @@
         </div>
         <div class="card-content">
           <ImageDetails v-if="!is_editing" :image="selected_image" @toggle-edit="toggleEdit"/>
-          <p v-else>Edit</p>
+          <ImageEditForm v-else :image="selected_image" @cancel="toggleEdit" @save="handleSave"/>
         </div>
       </div>
     </div>

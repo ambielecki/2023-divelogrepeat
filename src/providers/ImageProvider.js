@@ -1,6 +1,7 @@
 import diveLogApiProvider from "./DiveLogApiProvider";
 import { useUserStore } from "@/stores/user";
 import { useAsyncGet } from "@/composables/asyncGet";
+import { useAsyncPatch } from "@/composables/asyncPatch";
 
 class ImageProvider {
     constructor() {
@@ -32,6 +33,12 @@ class ImageProvider {
             method: 'POST',
             body: form_data,
         })
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
+    async patchImage(body, id) {
+        const response = await useAsyncPatch(this.base_api + '/admin/image/' + id, body, true);
 
         return diveLogApiProvider.processApiResponse(response);
     }

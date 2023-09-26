@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, onBeforeUpdate, ref } from "vue";
 import GenericProvider from "@/providers/GenericProvider";
 import { debounce } from "@/composables/debounce";
 
@@ -10,6 +10,15 @@ const internal_model = ref('');
 const provider = new GenericProvider('/admin/tag');
 
 const search = debounce(() => getSuggestions());
+const updated = ref(false);
+
+onBeforeUpdate(() => {
+  if (!updated.value) {
+    props.modelValue.forEach((tag_name) => addTag(tag_name));
+    updated.value = true;
+  }
+});
+
 function getSuggestions() {
   if (internal_model.value.length > 2) {
     provider.getList({
@@ -36,6 +45,7 @@ const show_tags = computed(() => {
 function addTag(name) {
   if (tags.value.indexOf(name) === -1) {
     tags.value.push(name);
+    updated.value = true;
   }
   emit("update:modelValue", tags.value);
 }
@@ -44,9 +54,11 @@ function removeTag(name) {
   const index = tags.value.indexOf(name);
   if (name !== -1) {
     tags.value.splice(index, 1);
+    updated.value = true;
   }
   emit("update:modelValue", tags.value);
 }
+
 </script>
 
 <template>
@@ -80,7 +92,7 @@ function removeTag(name) {
       <div class="buttons">
         <button v-for="suggestion in suggestions" class="button is-small is-rounded" @click="addTag(suggestion.name)">
           <span>{{ suggestion.name }}</span>
-              <span class="icon">
+          <span class="icon">
             <i class="fa-solid fa-plus"></i>
           </span>
         </button>
@@ -94,7 +106,7 @@ function removeTag(name) {
     </div>
     <div class="field-body">
       <div class="buttons">
-        <button v-for="tag in tags" class="button is-small is-rounded" @click="removeTag(tag)">
+        <button v-for="tag in modelValue" class="button is-small is-rounded" @click="removeTag(tag)">
           <span>{{ tag }}</span>
           <span class="icon">
             <i class="fa-solid fa-x"></i>
