@@ -18,10 +18,10 @@ set('bin/npm', function () {
 task('copy-node', function () {
     if (has('previous_release')) {
         if (test('[ -d {{previous_release}}/node_modules ]')) {
-            run('cp -R {{previous_release}}/node_modules {{release_path}}/week9');
+            run('cp -R {{previous_release}}/node_modules {{release_path}}');
         }
     }
-    run("cd {{release_path}} && {{bin/npm}} ci");
+    run("cd {{release_path}} && {{bin/npm}} install --frozen-lockfile");
 });
 
 task('npm-build', function () {
