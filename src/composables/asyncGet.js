@@ -3,8 +3,6 @@ import { useAlertStore } from "@/stores/alert";
 import { addHeaders } from "./addHeaders";
 
 export async function useAsyncGet(url, with_auth = false) {
-    const userStore = useUserStore();
-
     let options = {
         method: "GET",
     };

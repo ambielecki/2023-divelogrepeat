@@ -1,9 +1,10 @@
 <script setup>
   const props = defineProps(['input_label', 'input_name', 'input_values', 'modelValue']);
-  const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:modelValue', 'change']);
 
   function update() {
     emit('update:modelValue', event.target.value);
+    emit('change');
   }
 </script>
 

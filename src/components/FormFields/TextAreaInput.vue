@@ -10,7 +10,7 @@
 <template>
   <div class="field is-horizontal">
     <div class="field-label is-normal">
-      <label class="label" for="description">{{ input_label }}</label>
+      <label class="label" :for="input_name">{{ input_label }}</label>
     </div>
     <div class="field-body">
       <div class="field">

@@ -52,7 +52,7 @@
 
       if (user_response) {
         userStore.$patch({
-          user: response.user,
+          user: user_response.user,
           is_logged_in: true,
         });
 

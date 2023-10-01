@@ -60,6 +60,16 @@ const router = createRouter({
             }
         },
         {
+            path: '/admin/home',
+            name: 'edit_home',
+            component: () => import('../views/admin/HomePageEdit.vue'),
+            beforeEnter: (to, from) => {
+                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                    return false;
+                }
+            }
+        },
+        {
             path: '/admin/image/upload',
             name: 'image_upload',
             component: () => import('../views/admin/image/ImageUpload.vue'),

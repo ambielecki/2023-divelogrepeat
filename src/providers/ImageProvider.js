@@ -12,10 +12,6 @@ class ImageProvider {
         const filtered_query_params = {};
 
         for (const query_param in params) {
-            if (!params[query_param]) {
-                continue;
-            }
-
             filtered_query_params[query_param] = params[query_param];
         }
 

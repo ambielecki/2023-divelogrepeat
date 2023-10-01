@@ -1,11 +1,11 @@
 <script setup>
-  import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
   import TopNav from "./components/TopNav.vue";
   import Alerts from "./components/Alerts.vue";
   import { useUserStore } from "./stores/user";
   import { useAlertStore } from "./stores/alert";
   import AuthProvider from "./providers/AuthProvider";
-  import { onMounted } from "vue";
+  import { computed, onMounted } from "vue";
 
   setInterval(() => {
     if (useUserStore().is_logged_in) {
@@ -26,6 +26,16 @@
     }
   }, 60000);
 
+  const route = useRoute();
+
+  const is_home_page = computed(() => {
+    return route.path === '/';
+  });
+
+  const container_class = computed(() => {
+    return !is_home_page.value ? 'container app_container' : '';
+  });
+
   onMounted(() => {
     AuthProvider.checkCachedToken();
   });
@@ -41,7 +51,7 @@
 <div>
   <TopNav />
   <Alerts />
-  <div class="container app_container">
+  <div :class="container_class">
     <RouterView />
   </div>
 </div>

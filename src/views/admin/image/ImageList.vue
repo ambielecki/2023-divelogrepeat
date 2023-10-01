@@ -5,6 +5,7 @@
   import ImageDetails from "@/components/Image/ImageDetails.vue";
   import ImageEditForm from "@/components/Image/ImageEditForm.vue";
   import imageProvider from "@/providers/ImageProvider";
+  import { useAlertStore } from "@/stores/alert";
 
   const base_image_path = import.meta.env.VITE_IMAGE_URL;
   const images = ref([]);
@@ -80,6 +81,7 @@
     }, image.id)
         .then(result => {
           images.value = images.value.map(image => image.id == result.image.id ? result.image : image);
+          useAlertStore().addAlert('Image updated successfully');
           is_editing.value = false;
         });
   }

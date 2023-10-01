@@ -68,9 +68,7 @@ import { computed, onMounted } from "vue";
           </a>
 
           <div class="navbar-dropdown">
-            <a class="navbar-item">
-              Home Page
-            </a>
+            <router-link :to="{ name: 'edit_home' }" class="navbar-item">Home Page</router-link>
             <router-link :to="{ name: 'image_list' }" class="navbar-item">Images</router-link>
           </div>
         </div>
