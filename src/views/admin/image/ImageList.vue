@@ -125,7 +125,7 @@
           </figure>
         </div>
         <div class="card-content">
-          <ImageDetails v-if="!is_editing" :image="selected_image" @toggle-edit="toggleEdit"/>
+          <ImageDetails v-if="!is_editing" :image="selected_image" :show_edit="true" @toggle-edit="toggleEdit"/>
           <ImageEditForm v-else :image="selected_image" @cancel="toggleEdit" @save="handleSave"/>
         </div>
       </div>

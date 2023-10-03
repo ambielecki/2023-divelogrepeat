@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import PageProvider from "@/providers/PageProvider";
 import TextInput from "@/components/FormFields/TextInput.vue";
 import RichEditor from "@/components/FormFields/RichEditor.vue";
@@ -9,6 +9,28 @@ const page = ref({});
 
 function handleSave() {
   console.log('TODO');
+}
+
+const hero_image = ref({});
+const has_hero_image = computed(() => {
+  return Object.keys(hero_image.value).length > 0;
+});
+
+const carousel_images = ref([]);
+const has_carousel_images = computed(() => {
+  return carousel_images.value.length > 0;
+});
+
+function handleImageSelect(image, is_hero) {
+  const cloned_image = JSON.parse(JSON.stringify(image));
+
+  if (is_hero) {
+    hero_image.value = cloned_image;
+  } else {
+    if (!carousel_images.value.find((carousel_image) => carousel_image.id === cloned_image.id)) {
+      carousel_images.value.push(cloned_image);
+    }
+  }
 }
 
 onMounted(() => {
@@ -68,7 +90,7 @@ onMounted(() => {
     <div v-else class="column is-three-fifths"></div>
 
     <div class="column is-two-fifths">
-      <ImageSelector />
+      <ImageSelector :show_select="true" @selected="handleImageSelect"/>
     </div>
   </div>
 </template>
