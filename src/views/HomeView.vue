@@ -22,7 +22,16 @@ import { computed, onMounted, ref } from "vue";
         <img src="/hero_dive.jpg" alt="Sandals Montego Bay dive boat at dock">
       </figure>
       <div class="container app_container">
-        <div v-html="content.content"></div>
+        <div class="columns">
+          <div class="column is-two-thirds">
+            <div class="card">
+              <div class="card-content">
+                <p class="title" v-html="content.title"></p>
+                <div v-html="content.content"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
