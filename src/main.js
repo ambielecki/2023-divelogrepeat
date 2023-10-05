@@ -5,6 +5,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import "bulma/css/bulma.css";
+import 'vue3-carousel/dist/carousel.css'
 
 import App from './App.vue';
 import router from './router';

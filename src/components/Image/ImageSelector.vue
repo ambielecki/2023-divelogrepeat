@@ -124,12 +124,12 @@ onMounted(() => {
         </figure>
       </div>
       <div class="card-content">
-        <ImageDetails v-if="has_selected_image" :image="selected_image" :show_edit="false" />
         <div v-if="show_select" class="field is-grouped">
           <p class="control">
             <button class="button is-info" @click="handleSelect">Select</button>
           </p>
         </div>
+        <ImageDetails v-if="has_selected_image" :image="selected_image" :show_edit="false" />
       </div>
     </div>
   </div>

@@ -1,5 +1,6 @@
 import { useAsyncGet } from "../composables/asyncGet";
 import diveLogApiProvider from "./DiveLogApiProvider";
+import { useAsyncPost } from "@/composables/asyncPost";
 
 class PageProvider {
     constructor() {
@@ -8,6 +9,12 @@ class PageProvider {
 
     async getHomePage() {
         const response = await useAsyncGet(this.base_api + '/page/home');
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
+    async postHomePage(page_data) {
+        const response = await useAsyncPost(this.base_api + '/admin/home', page_data, true);
 
         return diveLogApiProvider.processApiResponse(response);
     }

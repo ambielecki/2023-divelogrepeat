@@ -4,11 +4,30 @@ import PageProvider from "@/providers/PageProvider";
 import TextInput from "@/components/FormFields/TextInput.vue";
 import RichEditor from "@/components/FormFields/RichEditor.vue";
 import ImageSelector from "@/components/Image/ImageSelector.vue";
+import { useAlertStore } from "@/stores/alert";
+import router from "@/router";
+import ImageDisplay from "@/components/Image/ImageDisplay.vue";
+
+const base_image_path = import.meta.env.VITE_IMAGE_URL;
 
 const page = ref({});
 
-function handleSave() {
-  console.log('TODO');
+async function handleSave() {
+  const response = await PageProvider.postHomePage({
+    page: {
+      content: {
+        content: page.value.content.content,
+        title: page.value.content.title,
+      },
+    },
+    hero_image: has_hero_image ? hero_image.value.id : null,
+    carousel_images: carousel_image_ids.value,
+  });
+
+  if (response) {
+    useAlertStore().addAlert('Home page updated successfully');
+    router.push({name: 'home'});
+  }
 }
 
 const hero_image = ref({});
@@ -16,10 +35,23 @@ const has_hero_image = computed(() => {
   return Object.keys(hero_image.value).length > 0;
 });
 
+function removeHeroImage() {
+  hero_image.value = {};
+}
+
 const carousel_images = ref([]);
 const has_carousel_images = computed(() => {
   return carousel_images.value.length > 0;
 });
+const carousel_image_ids = computed(() => {
+  return carousel_images.value.map((image) => image.id);
+});
+
+function removeCarouselImage(id) {
+  carousel_images.value = carousel_images.value.filter((image) => {
+    return image.id !== id;
+  })
+}
 
 function handleImageSelect(image, is_hero) {
   const cloned_image = JSON.parse(JSON.stringify(image));
@@ -38,6 +70,8 @@ onMounted(() => {
       .then((results) => {
         if (results.home_page) {
           page.value = results.home_page;
+          hero_image.value = results.home_page.content.hero_image;
+          carousel_images.value = results.home_page.content.carousel_images;
         }
       });
 });
@@ -75,6 +109,24 @@ onMounted(() => {
             input_label="Content"
           />
 
+          <p v-if="has_hero_image" class="title is-4">Hero Image</p>
+          <div v-if="has_hero_image" class="columns is-multiline">
+            <div class="image_container">
+              <ImageDisplay :image="hero_image" size="small" />
+              <button class="delete is-medium image_delete" @click="removeHeroImage"></button>
+            </div>
+          </div>
+
+          <p v-if="has_carousel_images" class="title is-4">Carousel Images</p>
+          <div v-if="has_carousel_images" class="columns is-multiline">
+            <div class="column is-one-fifth">
+              <div class="image_container">
+                <ImageDisplay :image="carousel_image" size="small" />
+                <button class="delete is-medium image_delete" @click="removeCarouselImage(carousel_image.id)"></button>
+              </div>
+            </div>
+          </div>
+
           <div class="field is-horizontal">
             <div class="field-label is-normal">
               <label class="label"></label>
@@ -94,3 +146,15 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.image_container {
+  position: relative;
+}
+
+.image_delete {
+  position: absolute;
+  right: 0.25rem;
+  top: 0.25rem;
+}
+</style>
