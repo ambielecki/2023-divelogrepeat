@@ -3,6 +3,8 @@
   import TextInput from "@/components/FormFields/TextInput.vue";
   import TextAreaInput from "@/components/FormFields/TextAreaInput.vue";
   import RadioInput from "@/components/FormFields/RadioInput.vue";
+  import VueDatePicker from '@vuepic/vue-datepicker';
+  import '@vuepic/vue-datepicker/dist/main.css'
 
   const props = defineProps(['dive_log', 'max_dive']);
   const emit = defineEmits(['cancel', 'save']);
@@ -86,12 +88,21 @@
               input_placeholder="Buddy"
               v-model="form_data.buddy"
           />
-          <TextInput
-              input_label="Date Time"
-              input_name="date_Time"
-              input_placeholder="YYYY-MM-DD HH:MM:SS"
-              v-model="form_data.date_time"
-          />
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="date_time">Date Time</label>
+            </div>
+
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <VueDatePicker name="date_time" :is24="false" v-model="form_data.date_time"></VueDatePicker>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

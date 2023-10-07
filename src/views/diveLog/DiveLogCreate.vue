@@ -17,12 +17,8 @@
     used_computer: 0,
     description: '',
     notes: '',
-    dive_details: {
-
-    },
-    equipment_details: {
-
-    },
+    dive_details: {},
+    equipment_details: {},
   });
 
   const max_dive = ref(0);
@@ -47,6 +43,7 @@
     const response = await DiveLogProvider.postCreate(dive_log.value);
     loading.value.log_dive = false;
 
+    debugger;
     if (response) {
       useAlertStore().addAlert('Dive Logged Successfully');
       router.push({ name: 'dive_log' });
