@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onMounted, onUpdated, ref, watch } from "vue";
-import PageProvider from "../providers/PageProvider";
 import ImageDisplay from "@/components/Image/ImageDisplay.vue";
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { useHomePageStore } from "@/stores/home_page";
 
 const page = ref({});
 const content = computed(() => {
@@ -27,10 +27,7 @@ function handleSlideStart(data) {
 }
 
 onMounted(() => {
-  PageProvider.getHomePage()
-      .then((results) => {
-        page.value = results.home_page;
-      });
+  useHomePageStore().getHomePage().then((home_page) => page.value = home_page);
 });
 
 </script>

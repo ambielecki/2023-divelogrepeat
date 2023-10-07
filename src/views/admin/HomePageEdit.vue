@@ -5,6 +5,7 @@ import TextInput from "@/components/FormFields/TextInput.vue";
 import RichEditor from "@/components/FormFields/RichEditor.vue";
 import ImageSelector from "@/components/Image/ImageSelector.vue";
 import { useAlertStore } from "@/stores/alert";
+import { useHomePageStore } from "@/stores/home_page";
 import router from "@/router";
 import ImageDisplay from "@/components/Image/ImageDisplay.vue";
 
@@ -25,6 +26,7 @@ async function handleSave() {
 
   if (response) {
     useAlertStore().addAlert('Home page updated successfully');
+    useHomePageStore().setHomePage(response.home_page);
     router.push({name: 'home'});
   }
 }
