@@ -33,11 +33,7 @@ async function handleSave() {
 
 const hero_image = ref({});
 const has_hero_image = computed(() => {
-  if (hero_image.value) {
-    return Object.keys(hero_image.value).length > 0;
-  }
-
-  return false;
+  return Object.keys(hero_image.value).length > 0;
 });
 
 function removeHeroImage() {
@@ -76,8 +72,8 @@ onMounted(() => {
         if (results.home_page) {
           results.home_page.content.image_description = results.home_page.content.image_description ?? '';
           page.value = results.home_page;
-          hero_image.value = results.home_page.content.hero_image;
-          carousel_images.value = results.home_page.content.carousel_images;
+          hero_image.value = results.home_page.content.hero_image ?? {};
+          carousel_images.value = results.home_page.content.carousel_images ?? [];
         }
       });
 });
