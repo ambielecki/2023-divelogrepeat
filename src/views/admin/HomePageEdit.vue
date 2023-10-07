@@ -33,7 +33,11 @@ async function handleSave() {
 
 const hero_image = ref({});
 const has_hero_image = computed(() => {
-  return Object.keys(hero_image.value).length > 0;
+  if (hero_image.value) {
+    return Object.keys(hero_image.value).length > 0;
+  }
+
+  return false;
 });
 
 function removeHeroImage() {
