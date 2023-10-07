@@ -8,7 +8,7 @@
 
   const editor = ClassicEditor;
   const config = {};
-  const text = ref(props.modelValue);
+  const text = ref('');
 
   onMounted(() => {
     text.value = JSON.parse(JSON.stringify(props.modelValue));

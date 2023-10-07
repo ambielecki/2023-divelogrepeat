@@ -8,8 +8,6 @@ import { useAlertStore } from "@/stores/alert";
 import router from "@/router";
 import ImageDisplay from "@/components/Image/ImageDisplay.vue";
 
-const base_image_path = import.meta.env.VITE_IMAGE_URL;
-
 const page = ref({});
 
 async function handleSave() {
@@ -17,6 +15,7 @@ async function handleSave() {
     page: {
       content: {
         content: page.value.content.content,
+        image_description: page.value.content.image_description,
         title: page.value.content.title,
       },
     },
@@ -69,6 +68,7 @@ onMounted(() => {
   PageProvider.getHomePage()
       .then((results) => {
         if (results.home_page) {
+          results.home_page.content.image_description = results.home_page.content.image_description ?? '';
           page.value = results.home_page;
           hero_image.value = results.home_page.content.hero_image;
           carousel_images.value = results.home_page.content.carousel_images;
@@ -109,6 +109,12 @@ onMounted(() => {
             input_label="Content"
           />
 
+          <RichEditor
+              v-model="page.content.image_description"
+              input_name="image_description"
+              input_label="Image Description"
+          />
+
           <p v-if="has_hero_image" class="title is-4">Hero Image</p>
           <div v-if="has_hero_image" class="columns is-multiline">
             <div class="image_container">
@@ -119,7 +125,7 @@ onMounted(() => {
 
           <p v-if="has_carousel_images" class="title is-4">Carousel Images</p>
           <div v-if="has_carousel_images" class="columns is-multiline">
-            <div class="column is-one-fifth">
+            <div v-for="carousel_image in carousel_images" class="column is-one-fifth">
               <div class="image_container">
                 <ImageDisplay :image="carousel_image" size="small" />
                 <button class="delete is-medium image_delete" @click="removeCarouselImage(carousel_image.id)"></button>

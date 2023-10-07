@@ -70,11 +70,7 @@ onMounted(() => {
             <div v-if="show_carousel" class="column is-half">
               <div class="card">
                 <div class="card-content">
-                  <p>I would never claim to be a professional, but I do love taking photos.</p>
-                  <p>Lately I have been using a <a href="https://www.sealife-cameras.com/product/micro-3-0-underwater-camera/">
-                    Sealife Micro 3.0
-                  </a> for my underwater photos. It suits my needs well, not having to mess with o-rings is great
-                  and the ability to take RAW format photos allows for decent editing.</p>
+                  <div v-html="content.image_description"></div>
                   <hr>
                   {{ current_photo.description }}
                 </div>
