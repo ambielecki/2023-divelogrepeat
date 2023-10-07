@@ -9,23 +9,28 @@ const content = computed(() => {
   return page.value.content;
 });
 
+const dive_carousel = ref(null)
+const current_index = ref(0);
+const current_photo = computed(() => {
+  if (content.value.carousel_images.length > 0) {
+    return content.value.carousel_images[current_index.value];
+  }
+
+  return {};
+});
 const show_carousel = computed(() => {
   return content.value?.carousel_images?.length > 1;
 });
 
-const carousel = ref(null);
+function handleSlideStart(data) {
+  current_index.value = data.slidingToIndex;
+}
 
 onMounted(() => {
   PageProvider.getHomePage()
       .then((results) => {
         page.value = results.home_page;
       });
-});
-
-onUpdated(() => {
-  if (show_carousel.value) {
-
-  }
 });
 
 </script>
@@ -50,8 +55,8 @@ onUpdated(() => {
               </div>
             </div>
 
-            <div v-if="show_carousel" class="column is-half">
-              <Carousel :items-to-show="1">
+            <div v-if="show_carousel" class="column is-half dive_carousel">
+              <Carousel ref="dive_carousel" :items-to-show="1" @slide-start="handleSlideStart">
                 <Slide v-for="carousel_image in content.carousel_images" :key="carousel_image.id">
                   <ImageDisplay :image="carousel_image" size="medium" />
                 </Slide>
@@ -65,11 +70,13 @@ onUpdated(() => {
             <div v-if="show_carousel" class="column is-half">
               <div class="card">
                 <div class="card-content">
-                  <p>I would never claim to be a professional, but I do love taking photos.</p><br>
+                  <p>I would never claim to be a professional, but I do love taking photos.</p>
                   <p>Lately I have been using a <a href="https://www.sealife-cameras.com/product/micro-3-0-underwater-camera/">
                     Sealife Micro 3.0
                   </a> for my underwater photos. It suits my needs well, not having to mess with o-rings is great
                   and the ability to take RAW format photos allows for decent editing.</p>
+                  <hr>
+                  {{ current_photo.description }}
                 </div>
               </div>
             </div>
@@ -80,3 +87,15 @@ onUpdated(() => {
   </div>
 </main>
 </template>
+
+<style>
+  p {
+    &:not(:last-child)  {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .dive_carousel .carousel__icon {
+    fill: white;
+  }
+</style>
