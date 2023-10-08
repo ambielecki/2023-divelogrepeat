@@ -7,6 +7,7 @@ import TextInput from "@/components/FormFields/TextInput.vue";
 import RadioInput from "@/components/FormFields/RadioInput.vue";
 import TextAreaInput from "@/components/FormFields/TextAreaInput.vue";
 import TagInput from "@/components/FormFields/TagInput.vue";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const is_loading = ref(false);
 
@@ -83,7 +84,7 @@ async function handleUpload() {
                 <input class="file-input" type="file" name="resume" @change="handleFileChange($event)">
                 <span class="file-cta">
                 <span class="file-icon">
-                  <i class="fas fa-upload"></i>
+                  <font-awesome-icon :icon="['fas', 'fa-upload']" />
                 </span>
                 <span class="file-label">
                   Choose a file…

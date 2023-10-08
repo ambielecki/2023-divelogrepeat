@@ -4,9 +4,10 @@ import ImageProvider from "@/providers/ImageProvider";
 import RadioInput from "@/components/FormFields/RadioInput.vue";
 import Pagination from "@/components/Pagination.vue";
 import ImageDetails from "@/components/Image/ImageDetails.vue";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-const props = defineProps(['show_select', 'show_code'])
-const emit = defineEmits(['selected']);
+const props = defineProps(['show_select', 'show_code', 'is_collapsed'])
+const emit = defineEmits(['selected', 'toggle']);
 
 function handleSelect() {
   if (has_selected_image.value) {
@@ -84,32 +85,40 @@ onMounted(() => {
   <div class="column is-full">
     <div class="card">
       <div class="card-content">
-        <p class="title">Select Images </p>
-        <RadioInput
-            input_name="hero_images"
-            input_label="Hero"
-            :input_values="get_hero_values"
-            v-model="get_hero_images"
-            @change="getImageList"
-        />
-        <div class="columns is-multiline is-mobile">
-          <div v-if="!is_loading" v-for="image in images" :class="[show_hero ? 'is-half' : 'is-one-third', 'column']">
-            <div class="card image_item">
-              <div class="card-image">
-                <figure class="image" @click="imageClick(image)">
-                  <img v-if="image.has_sizes" :src="base_image_path + image.public_path + '/small/' + image.file_name"
-                       :alt="image.alt_tag">
-                  <img v-else :src="base_image_path + image.public_path + '/' + image.file_name" :alt="image.alt_tag">
-                </figure>
+        <p class="title">
+          Select Images
+          <span @click="$emit('toggle')" class="icon is-small is-pulled-right toggle_span">
+            <font-awesome-icon v-if="is_collapsed" :icon="['fas', 'angle-down']" />
+            <font-awesome-icon v-else :icon="['fas', 'angle-up']" />
+          </span>
+        </p>
+        <div v-show="!is_collapsed">
+          <RadioInput
+              input_name="hero_images"
+              input_label="Hero"
+              :input_values="get_hero_values"
+              v-model="get_hero_images"
+              @change="getImageList"
+          />
+          <div class="columns is-multiline is-mobile">
+            <div v-if="!is_loading" v-for="image in images" :class="[show_hero ? 'is-half' : 'is-one-third', 'column']">
+              <div class="card image_item">
+                <div class="card-image">
+                  <figure class="image" @click="imageClick(image)">
+                    <img v-if="image.has_sizes" :src="base_image_path + image.public_path + '/small/' + image.file_name"
+                         :alt="image.alt_tag">
+                    <img v-else :src="base_image_path + image.public_path + '/' + image.file_name" :alt="image.alt_tag">
+                  </figure>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div v-if="show_pagination" class="columns">
-          <div class="column">
-            <Pagination :current_page="page" :pages="pages" route="image_list"
-                        @paginationNavigate="handlePaginationNavigate"/>
+          <div v-if="show_pagination" class="columns">
+            <div class="column">
+              <Pagination :current_page="page" :pages="pages" route="image_list"
+                          @paginationNavigate="handlePaginationNavigate"/>
+            </div>
           </div>
         </div>
       </div>
@@ -139,5 +148,13 @@ onMounted(() => {
 <style scoped>
 .image_item:hover {
   box-shadow: 0 0.75em 1.5em -0.250em #3e8ed0, 0 0 0 1px #0a0a0a05;
+}
+
+.toggle_span {
+  margin-top: .5rem;
+
+  > svg {
+    height: 1.5rem;
+  }
 }
 </style>

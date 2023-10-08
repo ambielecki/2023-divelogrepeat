@@ -2,6 +2,7 @@
 import { computed, onBeforeUpdate, ref } from "vue";
 import GenericProvider from "@/providers/GenericProvider";
 import { debounce } from "@/composables/debounce";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const props = defineProps(['input_label', 'input_name', 'input_placeholder', 'modelValue', 'search_uri']);
 const emit = defineEmits(['update:modelValue']);
@@ -93,7 +94,7 @@ function removeTag(name) {
         <button v-for="suggestion in suggestions" class="button is-small is-rounded" @click="addTag(suggestion.name)">
           <span>{{ suggestion.name }}</span>
           <span class="icon">
-            <i class="fa-solid fa-plus"></i>
+            <font-awesome-icon :icon="['fa-solid', 'fa-plus']" />
           </span>
         </button>
       </div>
@@ -109,7 +110,7 @@ function removeTag(name) {
         <button v-for="tag in modelValue" class="button is-small is-rounded" @click="removeTag(tag)">
           <span>{{ tag }}</span>
           <span class="icon">
-            <i class="fa-solid fa-x"></i>
+            <font-awesome-icon :icon="['fa-solid', 'fa-x']" />
           </span>
         </button>
       </div>

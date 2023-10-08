@@ -66,6 +66,11 @@ function handleImageSelect(image, is_hero) {
   }
 }
 
+const is_image_selector_collapsed = ref(false);
+function toggleImageSelector() {
+  is_image_selector_collapsed.value = !is_image_selector_collapsed.value;
+}
+
 onMounted(() => {
   PageProvider.getHomePage()
       .then((results) => {
@@ -150,7 +155,12 @@ onMounted(() => {
     <div v-else class="column is-three-fifths"></div>
 
     <div class="column is-two-fifths">
-      <ImageSelector :show_select="true" @selected="handleImageSelect"/>
+      <ImageSelector
+          :show_select="true"
+          :is_collapsed="is_image_selector_collapsed"
+          @selected="handleImageSelect"
+          @toggle="toggleImageSelector"
+      />
     </div>
   </div>
 </template>
