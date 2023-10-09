@@ -43,7 +43,6 @@
     const response = await DiveLogProvider.postCreate(dive_log.value);
     loading.value.log_dive = false;
 
-    debugger;
     if (response) {
       useAlertStore().addAlert('Dive Logged Successfully');
       router.push({ name: 'dive_log' });

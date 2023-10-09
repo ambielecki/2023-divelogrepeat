@@ -5,6 +5,7 @@ import AuthProvider from "../providers/AuthProvider";
 import DiveCalculator from "@/views/DiveCalculator.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import BlogView from "@/views/BlogList.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +29,11 @@ const router = createRouter({
             path: '/register',
             name: 'register',
             component: RegisterView,
+        },
+        {
+            path: '/blog',
+            name: 'blog_list',
+            component: BlogView,
         },
         {
             path: '/dive-log',
@@ -91,7 +97,7 @@ const router = createRouter({
         },
         {
             path: '/admin/blog',
-            name: 'blog_list',
+            name: 'admin_blog_list',
             component: () => import('../views/admin/blog/BlogPageList.vue'),
             beforeEnter: (to, from) => {
                 if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
@@ -103,6 +109,16 @@ const router = createRouter({
             path: '/admin/blog/create',
             name: 'blog_create',
             component: () => import('../views/admin/blog/BlogPageCreate.vue'),
+            beforeEnter: (to, from) => {
+                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                    return false;
+                }
+            }
+        },
+        {
+            path: '/admin/blog/:id',
+            name: 'blog_edit',
+            component: () => import('../views/admin/blog/BlogPageEdit.vue'),
             beforeEnter: (to, from) => {
                 if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
                     return false;

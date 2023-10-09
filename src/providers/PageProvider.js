@@ -19,6 +19,12 @@ class PageProvider {
         return diveLogApiProvider.processApiResponse(response);
     }
 
+    async getActiveBlogList() {
+        const response = await useAsyncGet(this.base_api + '/blog');
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
     async postBlogPage(page_data) {
         const response = await useAsyncPost(this.base_api + '/admin/blog', page_data, true);
 

@@ -26,7 +26,7 @@ async function handleSave() {
 
   if (response) {
     useAlertStore().addAlert('Blog Post Created Successfully');
-    router.push({name: 'blog_list'});
+    router.push({name: 'admin_blog_list'});
   }
 }
 

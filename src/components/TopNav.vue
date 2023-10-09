@@ -58,6 +58,7 @@ import { computed, onMounted } from "vue";
 
     <div id="divelog_navbar" class="navbar-menu">
       <div class="navbar-start">
+<!--        <router-link :to="{ name: 'blog_list' }" class="navbar-item">Blog</router-link>-->
         <router-link :to="{ name: 'dive_calculator' }" class="navbar-item">Dive Calculator</router-link>
         <Transition>
           <router-link v-if="userStore.is_logged_in" :to="{ name: 'dive_log' }" class="navbar-item">Dive Log</router-link>
@@ -69,7 +70,7 @@ import { computed, onMounted } from "vue";
 
           <div class="navbar-dropdown">
             <router-link :to="{ name: 'edit_home' }" class="navbar-item">Home Page</router-link>
-            <router-link :to="{ name: 'blog_list' }" class="navbar-item">Blog</router-link>
+            <router-link :to="{ name: 'admin_blog_list' }" class="navbar-item">Blog</router-link>
             <router-link :to="{ name: 'image_list' }" class="navbar-item">Images</router-link>
           </div>
         </div>
