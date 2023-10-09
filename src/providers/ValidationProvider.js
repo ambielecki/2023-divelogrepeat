@@ -3,8 +3,12 @@ class ValidationProvider {
         return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(test_email))
     }
 
-    validateLength(test, length) {
+    validateMinLength(test, length) {
         return test.length >= length;
+    }
+
+    validateMaxLength(test, length) {
+        return test.length <= length;
     }
 
     validateMatch(test_1, test_2) {

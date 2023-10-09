@@ -18,6 +18,12 @@ class PageProvider {
 
         return diveLogApiProvider.processApiResponse(response);
     }
+
+    async postBlogPage(page_data) {
+        const response = await useAsyncPost(this.base_api + '/admin/blog', page_data, true);
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
 }
 
 export default new PageProvider();

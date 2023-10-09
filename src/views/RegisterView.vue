@@ -99,7 +99,7 @@
       errors.value.password.push('Password is required.');
     }
 
-    if (!validationProvider.validateLength(password.value, 8)) {
+    if (!validationProvider.validateMinLength(password.value, 8)) {
       errors.value.password.push('Password must be at least 8 characters.');
     }
 

@@ -89,6 +89,26 @@ const router = createRouter({
                 }
             }
         },
+        {
+            path: '/admin/blog',
+            name: 'blog_list',
+            component: () => import('../views/admin/blog/BlogPageList.vue'),
+            beforeEnter: (to, from) => {
+                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                    return false;
+                }
+            }
+        },
+        {
+            path: '/admin/blog/create',
+            name: 'blog_create',
+            component: () => import('../views/admin/blog/BlogPageCreate.vue'),
+            beforeEnter: (to, from) => {
+                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                    return false;
+                }
+            }
+        },
     ]
 })
 

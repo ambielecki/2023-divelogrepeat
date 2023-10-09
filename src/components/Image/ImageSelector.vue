@@ -69,6 +69,10 @@ async function getImageList() {
   return true;
 }
 
+function copyImageCode() {
+  navigator.clipboard.writeText('|--' + selected_image.value.id + '--|');
+}
+
 function handlePaginationNavigate(navigate_to) {
   page.value = navigate_to;
   getImageList();
@@ -137,6 +141,15 @@ onMounted(() => {
           <p class="control">
             <button class="button is-info" @click="handleSelect">Select</button>
           </p>
+        </div>
+        <div v-if="show_code && has_selected_image">
+          <p class="title is-4"><b>Code: </b>
+            <div class="tags has-addons">
+              <span class="tag is-large">|--{{ selected_image.id }}--|</span>
+              <a class="tag is-large is-success" @click="copyImageCode"><font-awesome-icon :icon="['fas', 'copy']" /></a>
+            </div>
+          </p>
+          <br>
         </div>
         <ImageDetails v-if="has_selected_image" :image="selected_image" :show_edit="false" />
       </div>
