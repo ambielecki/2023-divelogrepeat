@@ -91,4 +91,6 @@ onMounted(() => {
   .dive_carousel .carousel__icon {
     fill: white;
   }
+
+  html,body{ scroll-behavior: smooth}
 </style>

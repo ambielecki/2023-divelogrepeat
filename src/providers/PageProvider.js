@@ -19,8 +19,18 @@ class PageProvider {
         return diveLogApiProvider.processApiResponse(response);
     }
 
-    async getActiveBlogList() {
-        const response = await useAsyncGet(this.base_api + '/blog');
+    async getActiveBlogList(params = {}) {
+        const filtered_query_params = {};
+
+        for (const query_param in params) {
+            if (!params[query_param]) {
+                continue;
+            }
+
+            filtered_query_params[query_param] = params[query_param];
+        }
+
+        const response = await useAsyncGet(this.base_api + '/blog?' + new URLSearchParams(filtered_query_params).toString());
 
         return diveLogApiProvider.processApiResponse(response);
     }
