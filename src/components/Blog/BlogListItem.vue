@@ -23,10 +23,10 @@ const card_class = computed(() => {
       <p class="title is-5">{{ blog.title }}</p>
       <div v-html="blog.content.first_paragraph"></div>
       <router-link v-if="go_to_blog_list" :to="{ name: 'blog_list'}">
-        <button class="button is-info view_more_button">View More</button>
+        <button class="button is-info view_more_button">Read More</button>
       </router-link>
       <router-link v-else :to="{ name: 'blog_view', params: { slug: blog.slug }, query: { from_page: from_page }}">
-        <button class="button is-info view_more_button">View More</button>
+        <button class="button is-info view_more_button">Read More</button>
       </router-link>
     </div>
   </div>

@@ -36,7 +36,6 @@ onMounted(() => {
     limit: 1,
   })
       .then((results) => {
-        console.log(results);
         blogs.value = results.blog_pages;
       });
 });
