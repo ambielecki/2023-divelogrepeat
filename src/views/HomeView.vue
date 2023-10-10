@@ -3,7 +3,7 @@ import { computed, onMounted, onUpdated, ref, watch } from "vue";
 import ImageDisplay from "@/components/Image/ImageDisplay.vue";
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { useHomePageStore } from "@/stores/home_page";
-import PageProvider from "@/providers/PageProvider";
+import { useBlogStore } from "@/stores/blog"
 import BlogListItem from "@/components/Blog/BlogListItem.vue";
 
 const page = ref({});
@@ -28,16 +28,11 @@ function handleSlideStart(data) {
   current_index.value = data.slidingToIndex;
 }
 
-const blogs = ref([]);
+const blog = ref({});
 
 onMounted(() => {
   useHomePageStore().getHomePage().then((home_page) => page.value = home_page);
-  PageProvider.getActiveBlogList({
-    limit: 1,
-  })
-      .then((results) => {
-        blogs.value = results.blog_pages;
-      });
+  useBlogStore().getMostRecentBlog().then((blog_result) => blog.value = blog_result);
 });
 
 </script>
@@ -87,7 +82,7 @@ onMounted(() => {
         </div>
 
         <div class="column is-one-third-tablet">
-          <BlogListItem v-for="blog in blogs" :blog="blog" :show_image="true" :go_to_blog_list="true"/>
+          <BlogListItem :blog="blog" :show_image="true" :go_to_blog_list="true"/>
         </div>
       </div>
     </div>

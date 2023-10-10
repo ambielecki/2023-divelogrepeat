@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import PageProvider from "@/providers/PageProvider";
 import BlogListItem from "@/components/Blog/BlogListItem.vue";
 import Pagination from "@/components/Pagination.vue";
+import { useBlogStore } from "@/stores/blog";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -53,14 +54,9 @@ async function getBlogs() {
 
 async function getMostRecentBlog() {
   is_active_loading.value = true;
-  PageProvider.getActiveBlogList({
-    page: 1,
-    limit: 1,
-  })
-      .then((results) => {
-        if (results) {
-          active_blog.value = results.blog_pages[0];
-        }
+  useBlogStore().getMostRecentBlog()
+      .then((blog_result) => {
+        active_blog.value = blog_result;
         is_active_loading.value = false;
       });
 }
