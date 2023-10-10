@@ -2,14 +2,12 @@
 import ImageDisplay from "@/components/Image/ImageDisplay.vue";
 import { computed } from "vue";
 
-const props = defineProps(['blog', 'show_image','is_selected']);
+const props = defineProps(['blog', 'show_image','is_selected', 'go_to_blog_list', 'from_page']);
 const card_class = computed(() => {
-  let base_class = 'card blog-preview';
-  if (props.is_selected) {
-    base_class = base_class + ' is_selected';
+  return {
+    'card blog-preview' : true,
+    'is_selected': props.is_selected,
   }
-
-  return base_class;
 });
 
 </script>
@@ -24,7 +22,12 @@ const card_class = computed(() => {
     <div class="card-content">
       <p class="title is-5">{{ blog.title }}</p>
       <div v-html="blog.content.first_paragraph"></div>
-      <button class="button is-info">View More</button>
+      <router-link v-if="go_to_blog_list" :to="{ name: 'blog_list'}">
+        <button class="button is-info view_more_button">View More</button>
+      </router-link>
+      <router-link v-else :to="{ name: 'blog_view', params: { slug: blog.slug }, query: { from_page: from_page }}">
+        <button class="button is-info view_more_button">View More</button>
+      </router-link>
     </div>
   </div>
 
@@ -39,5 +42,9 @@ const card_class = computed(() => {
 
 .card {
   margin-bottom: 1rem;
+}
+
+button {
+  margin-top: 1rem;
 }
 </style>

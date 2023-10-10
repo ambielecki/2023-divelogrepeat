@@ -91,7 +91,7 @@
   <div class="columns is-multiline dive_log_list">
     <TransitionGroup v-if="!is_loading">
       <div v-for="dive_log in dive_logs" :key=dive_log.dive_number class="column is-12">
-        <LogListItem  :dive_log="dive_log" />
+        <LogListItem :dive_log="dive_log" />
       </div>
     </TransitionGroup>
     <Transition>

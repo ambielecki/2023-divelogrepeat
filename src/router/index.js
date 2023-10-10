@@ -5,7 +5,8 @@ import AuthProvider from "../providers/AuthProvider";
 import DiveCalculator from "@/views/DiveCalculator.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
-import BlogView from "@/views/BlogList.vue";
+import BlogItemView from "@/views/blog/BlogItemView.vue";
+import BlogList from "@/views/blog/BlogList.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,9 +32,14 @@ const router = createRouter({
             component: RegisterView,
         },
         {
+            path: '/blog/:slug',
+            name: 'blog_view',
+            component: BlogItemView,
+        },
+        {
             path: '/blog',
             name: 'blog_list',
-            component: BlogView,
+            component: BlogList,
         },
         {
             path: '/dive-log',
