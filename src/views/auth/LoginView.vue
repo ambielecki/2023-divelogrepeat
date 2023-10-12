@@ -100,6 +100,7 @@
               v-model="email"
               input_placeholder="Email Address"
               :errors="errors.email"
+              is_stacked="true"
           />
 
           <TextInput
@@ -109,29 +110,18 @@
               input_placeholder="Password"
               :errors="errors.password"
               type="password"
+              is_stacked="true"
           />
 
-          <div class="field is-grouped is-horizontal">
-            <div class="field-label is-normal"></div>
-            <div class="field-body">
-              <div class="control">
-                <router-link :to="{ name: 'forgot_password' }">Forgot Password?</router-link>
-              </div>
+          <div class="field">
+            <div class="control">
+              <router-link :to="{ name: 'forgot_password' }">Forgot Password?</router-link>
             </div>
           </div>
 
-          <div class="columns">
-            <div class="column is-full">
-              <div class="field is-grouped is-horizontal">
-                <div class="field-label is-normal">
-
-                </div>
-                <div class="field-body">
-                  <div class="control">
-                    <button class="button is-info" :class="{ 'is-loading': is_loading }" @click="login" data-test="login-button">Login</button>
-                  </div>
-                </div>
-              </div>
+          <div class="field is-grouped is-horizontal">
+            <div class="control">
+              <button class="button is-info" :class="{ 'is-loading': is_loading }" @click="login" data-test="login-button">Login</button>
             </div>
           </div>
         </div>

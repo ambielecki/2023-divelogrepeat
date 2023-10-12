@@ -73,10 +73,10 @@ async function resetPassword() {
               v-model="email"
               input_placeholder="Email Address"
               :errors="errors.email"
+              is_stacked="true"
           />
 
-          <div class="field is-grouped is-horizontal">
-            <div class="field-label is-normal"></div>
+          <div class="field is-grouped">
             <div class="field-body">
               <div class="control">
                 <button

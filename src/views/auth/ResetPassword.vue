@@ -27,6 +27,7 @@ function resetPassword() {
             input_placeholder="Password"
             :errors="errors.password"
             type="password"
+            is_stacked="true"
         />
 
         <TextInput
@@ -35,19 +36,17 @@ function resetPassword() {
             v-model="password_confirm"
             input_placeholder="Password"
             type="password"
+            is_stacked="true"
         />
 
-        <div class="field is-grouped is-horizontal">
-          <div class="field-label is-normal"></div>
-          <div class="field-body">
-            <div class="control">
-              <button
-                  class="button is-info"
-                  :class="{ 'is-loading': is_loading }"
-                  @click="resetPassword"
-                  data-test="login-button"
-              >Submit</button>
-            </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button
+                class="button is-info"
+                :class="{ 'is-loading': is_loading }"
+                @click="resetPassword"
+                data-test="login-button"
+            >Submit</button>
           </div>
         </div>
       </div>

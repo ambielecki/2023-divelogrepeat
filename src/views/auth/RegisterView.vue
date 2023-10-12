@@ -5,6 +5,7 @@ import { ref, computed } from 'vue';
 import AuthProvider from "../../providers/AuthProvider";
 import validationProvider from "../../providers/ValidationProvider";
 import router from "../../router";
+import TextInput from "@/components/FormFields/TextInput.vue";
 
 const userStore = useUserStore();
 const first_name = ref('');
@@ -118,93 +119,54 @@ function validateForm() {
     <div class="card">
       <div class="card-content">
         <p class="title is-4">Register</p>
-        <div class="field">
-          <label class="label" for="first_name">First Name</label>
-          <div class="control">
-            <input
-                id="first_name"
-                class="input"
-                type="text"
-                placeholder="First Name"
-                v-model="first_name"
-                @keyup.enter="register"
-            >
-          </div>
-          <div>
-            <p class="help is-danger" v-for="(error, index) in errors.first_name ">
-              {{ error }}
-            </p>
-          </div>
-        </div>
+        <TextInput
+            input_label="First Name"
+            input_name="first_name"
+            v-model="first_name"
+            :errors="errors.first_name"
+            input_placeholder="First Name"
+            type="text"
+            is_stacked="true"
+        />
 
-        <div class="field">
-          <label class="label" for="last_name">Last Name</label>
-          <div class="control">
-            <input
-                id="last_name"
-                class="input"
-                type="text"
-                placeholder="Last Name"
-                v-model="last_name"
-                @keyup.enter="register"
-            >
-          </div>
-          <div>
-            <p class="help is-danger" v-for="(error, index) in errors.last_name ">
-              {{ error }}
-            </p>
-          </div>
-        </div>
+        <TextInput
+            input_label="Last Name"
+            input_name="last_name"
+            v-model="first_name"
+            :errors="errors.last_name"
+            input_placeholder="Last Name"
+            type="text"
+            is_stacked="true"
+        />
 
-        <div class="field">
-          <label class="label" for="email">Email</label>
-          <div class="control">
-            <input
-                id="email"
-                class="input"
-                type="text"
-                placeholder="Email Address"
-                v-model="email"
-                @keyup.enter="login"
-            >
-          </div>
-          <div>
-            <p class="help is-danger" v-for="(error, index) in errors.email ">
-              {{ error }}
-            </p>
-          </div>
-        </div>
+        <TextInput
+            input_label="Email"
+            input_name="email"
+            v-model="email"
+            :errors="errors.email"
+            input_placeholder="Email Address"
+            type="text"
+            is_stacked="true"
+        />
 
-        <div class="field">
-          <label class="label" for="password">Password</label>
-          <div class="control">
-            <input
-                id="password"
-                class="input"
-                type="password"
-                placeholder="Password"
-                v-model="password"
-                @keyup.enter="login"
-            >
-          </div>
-          <p class="help is-danger" v-for="(error, index) in errors.password ">
-            {{ error }}
-          </p>
-        </div>
+        <TextInput
+            input_label="Password"
+            input_name="password"
+            v-model="password"
+            :errors="errors.password"
+            input_placeholder="Password"
+            type="password"
+            is_stacked="true"
+        />
 
-        <div class="field">
-          <label class="label" for="password_confirmation">Confirm Password</label>
-          <div class="control">
-            <input
-                id="password_confirmation"
-                class="input"
-                type="password"
-                placeholder="Confirm Password"
-                v-model="password_confirmation"
-                @keyup.enter="register"
-            >
-          </div>
-        </div>
+        <TextInput
+            input_label="Confirm Password"
+            input_name="password_confirmation"
+            v-model="password_confirmation"
+            input_placeholder="Confirm Password"
+            type="password"
+            is_stacked="true"
+        />
 
         <div class="field is-grouped">
           <div class="control">
