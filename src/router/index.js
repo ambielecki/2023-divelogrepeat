@@ -3,10 +3,12 @@ import {useUserStore} from "@/stores/user";
 import HomeView from '../views/HomeView.vue'
 import AuthProvider from "../providers/AuthProvider";
 import DiveCalculator from "@/views/DiveCalculator.vue";
-import LoginView from "@/views/LoginView.vue";
-import RegisterView from "@/views/RegisterView.vue";
+import LoginView from "@/views/auth/LoginView.vue";
+import RegisterView from "@/views/auth/RegisterView.vue";
 import BlogItemView from "@/views/blog/BlogItemView.vue";
 import BlogList from "@/views/blog/BlogList.vue";
+import ForgotPassword from "@/views/auth/ForgotPassword.vue";
+import ResetPassword from "@/views/auth/ResetPassword.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +27,16 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: LoginView,
+        },
+        {
+            path: '/forgot-password',
+            name: 'forgot_password',
+            component: ForgotPassword,
+        },
+        {
+            path: '/reset-password',
+            name: 'reset_password',
+            component: ResetPassword,
         },
         {
             path: '/register',

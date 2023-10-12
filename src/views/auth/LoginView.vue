@@ -2,9 +2,10 @@
   import { useUserStore } from "@/stores/user";
   import { useAlertStore } from "@/stores/alert";
   import { ref, computed } from 'vue';
-  import AuthProvider from "../providers/AuthProvider";
-  import validationProvider from "../providers/ValidationProvider";
-  import router from "../router";
+  import AuthProvider from "../../providers/AuthProvider";
+  import validationProvider from "../../providers/ValidationProvider";
+  import router from "../../router";
+  import TextInput from "@/components/FormFields/TextInput.vue";
 
   const userStore = useUserStore();
   const password = ref('');
@@ -93,53 +94,42 @@
       <div class="card">
         <div class="card-content">
           <p class="title is-4">Login</p>
-          <div class="columns is-multiline">
-            <div class="column is-full">
-              <div class="field">
-                <label class="label" for="email">Email</label>
-                <div class="control">
-                  <input
-                      id="email"
-                      class="input"
-                      type="text"
-                      placeholder="Email Address"
-                      v-model="email"
-                      @keyup.enter="login"
-                  >
-                </div>
-                <div>
-                  <p class="help is-danger" v-for="(error, index) in errors.email ">
-                    {{ error }}
-                  </p>
-                </div>
-              </div>
-            </div>
+          <TextInput
+              input_label="Email"
+              input_name="email"
+              v-model="email"
+              input_placeholder="Email Address"
+              :errors="errors.email"
+          />
 
-            <div class="column is-full">
-              <div class="field">
-                <label class="label" for="password">Password</label>
-                <div class="control">
-                  <input
-                      id="password"
-                      class="input"
-                      type="password"
-                      placeholder="Password"
-                      v-model="password"
-                      @keyup.enter="login"
-                  >
-                </div>
-                <p class="help is-danger" v-for="(error, index) in errors.password ">
-                  {{ error }}
-                </p>
+          <TextInput
+              input_label="Password"
+              input_name="password"
+              v-model="password"
+              input_placeholder="Password"
+              :errors="errors.password"
+              type="password"
+          />
+
+          <div class="field is-grouped is-horizontal">
+            <div class="field-label is-normal"></div>
+            <div class="field-body">
+              <div class="control">
+                <router-link :to="{ name: 'forgot_password' }">Forgot Password?</router-link>
               </div>
             </div>
           </div>
 
           <div class="columns">
             <div class="column is-full">
-              <div class="field is-grouped">
-                <div class="control">
-                  <button class="button is-info" :class="{ 'is-loading': is_loading }" @click="login" data-test="login-button">Login</button>
+              <div class="field is-grouped is-horizontal">
+                <div class="field-label is-normal">
+
+                </div>
+                <div class="field-body">
+                  <div class="control">
+                    <button class="button is-info" :class="{ 'is-loading': is_loading }" @click="login" data-test="login-button">Login</button>
+                  </div>
                 </div>
               </div>
             </div>

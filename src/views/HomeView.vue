@@ -29,6 +29,9 @@ function handleSlideStart(data) {
 }
 
 const blog = ref({});
+const show_blog = computed(() => {
+  return Object.keys(blog).length > 0;
+});
 
 onMounted(() => {
   useHomePageStore().getHomePage().then((home_page) => page.value = home_page);
@@ -82,7 +85,7 @@ onMounted(() => {
         </div>
 
         <div class="column is-one-third-tablet">
-          <BlogListItem :blog="blog" :show_image="true" :go_to_blog_list="true"/>
+          <BlogListItem v-if="show_blog" :blog="blog" :show_image="true" :go_to_blog_list="true"/>
         </div>
       </div>
     </div>

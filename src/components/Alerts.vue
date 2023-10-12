@@ -13,6 +13,7 @@
 </script>
 
 <template>
+<div class="alert_container">
   <TransitionGroup>
     <div
         v-for="(alert, key) in useAlertStore().alerts"
@@ -25,4 +26,15 @@
       {{ alert.message }}
     </div>
   </TransitionGroup>
+</div>
 </template>
+
+<style scoped>
+.alert_container {
+  position: absolute;
+  width: 100%;
+  .notification {
+    margin-bottom: 0.5rem;
+  }
+}
+</style>

@@ -14,14 +14,14 @@ const card_class = computed(() => {
 
 <template>
   <div :class="card_class">
-    <div v-if="show_image && blog.content.images && blog.content.images.length > 0" class="card-image">
+    <div v-if="show_image && blog.content?.images && blog?.content?.images?.length > 0" class="card-image">
       <figure class="image">
         <ImageDisplay :image="blog.content.images[0]" size="medium"></ImageDisplay>
       </figure>
     </div>
     <div class="card-content">
       <p class="title is-5">{{ blog.title }}</p>
-      <div v-html="blog.content.first_paragraph"></div>
+      <div v-html="blog.content?.first_paragraph"></div>
       <router-link v-if="go_to_blog_list" :to="{ name: 'blog_list'}">
         <button class="button is-info view_more_button">Read More</button>
       </router-link>

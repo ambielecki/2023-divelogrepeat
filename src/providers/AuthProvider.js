@@ -38,6 +38,12 @@ class AuthProvider {
         return diveLogApiProvider.processApiResponse(response);
     }
 
+    async requestPasswordReset(body) {
+        const response = await useAsyncPost(this.base_api + '/request-password-reset', body);
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
     checkCachedToken() {
         const access_token = window.localStorage.getItem('dive_access_token');
         const expires_at = window.localStorage.getItem('dive_expires_at');
