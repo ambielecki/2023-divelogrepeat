@@ -1,17 +1,78 @@
 <script setup>
 import TextInput from "@/components/FormFields/TextInput.vue";
 import { computed, ref } from "vue";
+import { useRoute } from "vue-router";
+import validationProvider from "@/providers/ValidationProvider";
+import AuthProvider from "@/providers/AuthProvider";
+import { useAlertStore } from "@/stores/alert";
+import router from "@/router";
 
 const password = ref('');
-const password_confirm = ref('');
+const password_confirmation = ref('');
+const route = useRoute();
+
+const token = route.query.token ?? '';
+const email = route.query.email ?? '';
 const errors = ref({
   password: '',
-  password_confirm: "",
 });
 
-function resetPassword() {
+const has_errors = computed(() => {
+  let return_value = false;
+  for (const field in errors.value) {
+    if (errors.value[field].length > 0) {
+      return_value = true;
+      break;
+    }
+  }
 
+  return return_value;
+});
+
+async function resetPassword() {
+  is_loading.value = true;
+
+  validateForm();
+
+  if (has_errors.value) {
+    is_loading.value = false;
+    return
+  }
+
+  const response = await AuthProvider.resetPassword({
+    email: email,
+    token: token,
+    password: password.value,
+    password_confirmation: password_confirmation.value,
+  });
+
+  if (response) {
+    useAlertStore().addAlert('Password Reset Successfully');
+    router.push({ name: 'home' });
+  }
+
+  is_loading.value = false;
 }
+
+const is_loading = ref(false);
+function validateForm() {
+  errors.value = {
+    password: [],
+  }
+
+  if (!password.value) {
+    errors.value.password.push('Password is required.');
+  }
+
+  if (!validationProvider.validateMinLength(password.value, 8)) {
+    errors.value.password.push('Password must be at least 8 characters.');
+  }
+
+  if (!validationProvider.validateMatch(password.value, password_confirmation.value)) {
+    errors.value.password.push('Passwords must match.');
+  }
+}
+
 </script>
 
 <template>
@@ -33,7 +94,7 @@ function resetPassword() {
         <TextInput
             input_label="Confirm New Password"
             input_name="password_confirm"
-            v-model="password_confirm"
+            v-model="password_confirmation"
             input_placeholder="Password"
             type="password"
             is_stacked="true"
