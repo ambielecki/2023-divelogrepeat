@@ -113,11 +113,11 @@
               is_stacked="true"
           />
 
-          <div class="field">
-            <div class="control">
-              <router-link :to="{ name: 'forgot_password' }">Forgot Password?</router-link>
-            </div>
-          </div>
+<!--          <div class="field">-->
+<!--            <div class="control">-->
+<!--              <router-link :to="{ name: 'forgot_password' }">Forgot Password?</router-link>-->
+<!--            </div>-->
+<!--          </div>-->
 
           <div class="field is-grouped is-horizontal">
             <div class="control">
