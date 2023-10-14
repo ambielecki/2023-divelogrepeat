@@ -21,6 +21,12 @@ class CalculatorProvider {
 
         return diveLogApiProvider.processApiResponse(response);
     }
+
+    async getTableData() {
+        const response = await useAsyncGet(this.base_api + '/dive-tables');
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
 }
 
 export default new CalculatorProvider();
