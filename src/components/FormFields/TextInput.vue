@@ -1,6 +1,6 @@
 <script setup>
   const props = defineProps(['input_label', 'input_name', 'input_placeholder', 'errors', 'type', 'modelValue', 'is_stacked']);
-  const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:modelValue', 'enter']);
 
   function update() {
     emit('update:modelValue', event.target.value);
@@ -38,6 +38,7 @@
           :value="modelValue"
           :placeholder="input_placeholder"
           @input="update"
+          @keyup.enter="$emit('enter')"
       >
     </div>
   </div>

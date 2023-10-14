@@ -1,8 +1,13 @@
 <script setup>
-  import {computed} from "vue";
+  import { ref, computed } from "vue";
+  import ConfirmationModal from "@/components/ConfirmationModal.vue";
+  import DiveLogProvider from "@/providers/DiveLogProvider";
+  import { useAlertStore } from "@/stores/alert";
+  import router from "@/router";
 
   const props = defineProps(['dive_log']);
   const emit = defineEmits(['edit']);
+  const show_modal = ref(false);
 
   const computer_text = computed(() => {
     return parseInt(props.dive_log.used_computer) === 1 ? 'Yes' : 'No';
@@ -11,17 +16,38 @@
   function edit() {
     emit('edit');
   }
+
+  function toggleModal() {
+    show_modal.value = !show_modal.value;
+  }
+
+  function deleteLog() {
+    const response = DiveLogProvider.delete(props.dive_log.id);
+    toggleModal();
+
+    if (response) {
+      useAlertStore().addAlert('Log Deleted Successfully');
+      router.push({ name: 'dive_log' });
+    }
+  }
 </script>
 
 <template>
   <div class="column is-full">
     <div class="columns is-multiline">
-
       <div class="column is-full">
         <div class="card">
           <div class="card-content is-vcentered">
             <p class="title main_title">Dive # {{ dive_log.dive_number }}</p>
-            <button class="button is-info is-pulled-right" @click="edit">Edit</button>
+            <div class="field is-grouped is-pulled-right">
+              <p class="control">
+                <button class="button is-info" @click="edit">Edit</button>
+              </p>
+              <p>
+                <button class="button is-danger" @click="toggleModal">Delete</button>
+              </p>
+            </div>
+
           </div>
         </div>
       </div>
@@ -70,6 +96,14 @@
 
     </div>
   </div>
+
+<ConfirmationModal
+  message="Are you sure you want to delete this log?"
+  confirm_text="Delete"
+  :is_active="show_modal"
+  @close="toggleModal"
+  @confirm="deleteLog"
+/>
 </template>
 
 <style scoped>

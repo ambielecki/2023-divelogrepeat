@@ -101,6 +101,7 @@
               input_placeholder="Email Address"
               :errors="errors.email"
               is_stacked="true"
+              @enter="login"
           />
 
           <TextInput
@@ -111,6 +112,7 @@
               :errors="errors.password"
               type="password"
               is_stacked="true"
+              @enter="login"
           />
 
           <div class="field">

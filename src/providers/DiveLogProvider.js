@@ -2,6 +2,7 @@ import { useAsyncGet } from "@/composables/asyncGet";
 import diveLogApiProvider from "./DiveLogApiProvider";
 import { useAsyncPost } from "@/composables/asyncPost";
 import { useAsyncPut } from "@/composables/asyncPut";
+import { useAsyncDelete } from "@/composables/asyncDelete";
 
 class DiveLogProvider {
     constructor() {
@@ -50,6 +51,12 @@ class DiveLogProvider {
 
     async postCreate(body) {
         const response = await useAsyncPost(this.base_api + '/dive-log', body, true);
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
+    async delete(id) {
+        const response = await useAsyncDelete(this.base_api + '/dive-log/' + id);
 
         return diveLogApiProvider.processApiResponse(response);
     }

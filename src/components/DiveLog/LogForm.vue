@@ -46,7 +46,6 @@
               input_name="dive_number"
               :input_placeholder="next_dive"
               v-model="form_data.dive_number"
-              has_title="true"
             />
           </div>
 

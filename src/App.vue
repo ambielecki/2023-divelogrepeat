@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
   import TopNav from "./components/TopNav.vue";
   import Alerts from "./components/Alerts.vue";
   import { useUserStore } from "./stores/user";

@@ -25,7 +25,7 @@
 <template>
   <div class="card is-info">
     <div class="card-content">
-      <p class="title is-4">Get Your Results</p>
+      <p class="title is-4">Results</p>
       <div class="content">
         <table class="table">
           <Transition>

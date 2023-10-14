@@ -127,6 +127,7 @@ function validateForm() {
             input_placeholder="First Name"
             type="text"
             is_stacked="true"
+            @enter="register"
         />
 
         <TextInput
@@ -137,6 +138,7 @@ function validateForm() {
             input_placeholder="Last Name"
             type="text"
             is_stacked="true"
+            @enter="register"
         />
 
         <TextInput
@@ -147,6 +149,7 @@ function validateForm() {
             input_placeholder="Email Address"
             type="text"
             is_stacked="true"
+            @enter="register"
         />
 
         <TextInput
@@ -157,6 +160,7 @@ function validateForm() {
             input_placeholder="Password"
             type="password"
             is_stacked="true"
+            @enter="register"
         />
 
         <TextInput
@@ -166,6 +170,7 @@ function validateForm() {
             input_placeholder="Confirm Password"
             type="password"
             is_stacked="true"
+            @enter="register"
         />
 
         <div class="field is-grouped">

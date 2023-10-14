@@ -74,6 +74,7 @@ async function resetPassword() {
               input_placeholder="Email Address"
               :errors="errors.email"
               is_stacked="true"
+              @enter="resetPassword"
           />
 
           <div class="field is-grouped">

@@ -60,7 +60,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <div v-if="show_carousel" class="column is-half dive_carousel">
+            <div v-if="show_carousel" class="column is-half dive_carousel is-hidden-mobile">
               <Carousel ref="dive_carousel" :items-to-show="1" @slide-start="handleSlideStart">
                 <Slide v-for="carousel_image in content.carousel_images" :key="carousel_image.id">
                   <ImageDisplay :image="carousel_image" size="medium" />
@@ -72,7 +72,7 @@ onMounted(() => {
                 </template>
               </Carousel>
             </div>
-            <div v-if="show_carousel" class="column is-half">
+            <div v-if="show_carousel" class="column is-half is-hidden-mobile">
               <div class="card">
                 <div class="card-content">
                   <div v-html="content.image_description"></div>

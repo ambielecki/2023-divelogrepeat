@@ -89,6 +89,7 @@ function validateForm() {
             :errors="errors.password"
             type="password"
             is_stacked="true"
+            @enter="resetPassword"
         />
 
         <TextInput
@@ -98,6 +99,7 @@ function validateForm() {
             input_placeholder="Password"
             type="password"
             is_stacked="true"
+            @enter="resetPassword"
         />
 
         <div class="field is-grouped">
