@@ -58,7 +58,7 @@ import { computed, onMounted } from "vue";
 
     <div id="divelog_navbar" class="navbar-menu">
       <div class="navbar-start">
-<!--        <router-link :to="{ name: 'blog_list' }" class="navbar-item">Blog</router-link>-->
+        <router-link :to="{ name: 'blog_list' }" class="navbar-item">Blog</router-link>
         <router-link :to="{ name: 'dive_calculator' }" class="navbar-item">Dive Calculator</router-link>
         <Transition>
           <router-link v-if="userStore.is_logged_in" :to="{ name: 'dive_log' }" class="navbar-item">Dive Log</router-link>
