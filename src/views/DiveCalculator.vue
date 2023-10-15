@@ -22,31 +22,9 @@ import { computed, onMounted, ref } from 'vue';
     dive_2_time: null,
   });
 
-  const table_data = ref({});
-  const show_tables = computed(() => {
-    return Object.keys(table_data.value).length > 0;
-  })
-
   async function calculateDive() {
     calculationResponse.value = await CalculatorProvider.calculateDive(calculationInput.value);
   }
-
-  function applyClass(column) {
-    const to_highlight = document.querySelectorAll("[data-column='" + column + "']");
-    to_highlight.forEach(element => element.classList.add('hover_column'));
-  }
-
-  function removeClass(column) {
-    const to_highlight = document.querySelectorAll("[data-column='" + column + "']");
-    to_highlight.forEach(element => element.classList.remove('hover_column'));
-  }
-
-  onMounted(() => {
-    CalculatorProvider.getTableData()
-        .then((response) => {
-          table_data.value = response.dive_tables;
-        });
-  });
 </script>
 
 <template>
@@ -60,45 +38,6 @@ import { computed, onMounted, ref } from 'vue';
     <div class="column is-one-third">
       <CalculatorDisplay :calculation-display="calculationResponse"/>
     </div>
-
-    <div v-if="show_tables" class="column is-half-widescreen">
-      <div class="card">
-        <div class="card-content">
-          <p class="title is-4">Table 1</p>
-          <table class="table is-narrow">
-            <thead>
-            <tr>
-              <th></th>
-              <th
-                  v-for="(depth, index_1) in table_data.depths"
-                  @mouseenter="applyClass(index_1)"
-                  @mouseleave="removeClass(index_1)"
-                  :data-column="index_1"
-              >
-                {{ depth }}
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(ndls, pressure_group) in table_data.table_one">
-              <td><b>{{ pressure_group}}</b></td>
-              <td
-                  @mouseenter="applyClass(index_2)"
-                  @mouseleave="removeClass(index_2)"
-                  v-for="(ndl, index_2)
-                in ndls"
-                  :data-column="index_2"
-                  class="hover_td"
-              >
-                {{ ndl }}
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
   </div>
 </template>
 
