@@ -36,7 +36,7 @@ function handlePaginationNavigate(navigate_to) {
 async function getBlogs() {
   is_list_loading.value = true;
 
-  PageProvider.getActiveBlogList({
+  PageProvider.getPublishedBlogList({
     page: page.value,
   })
       .then((results) => {

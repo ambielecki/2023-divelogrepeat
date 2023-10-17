@@ -19,7 +19,7 @@ class PageProvider {
         return diveLogApiProvider.processApiResponse(response);
     }
 
-    async getActiveBlogList(params = {}) {
+    async getPublishedBlogList(params = {}) {
         const filtered_query_params = {};
 
         for (const query_param in params) {
@@ -31,6 +31,12 @@ class PageProvider {
         }
 
         const response = await useAsyncGet(this.base_api + '/blog?' + new URLSearchParams(filtered_query_params).toString());
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
+    async getActiveBlogList() {
+        const response = await useAsyncGet(this.base_api + '/admin/blog', true);
 
         return diveLogApiProvider.processApiResponse(response);
     }

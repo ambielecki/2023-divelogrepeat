@@ -11,7 +11,7 @@ export const useBlogStore = defineStore('blog', () => {
 
     async function getMostRecentBlog() {
         if (!(Object.keys(most_recent_blog.value).length)) {
-            const results = await PageProvider.getActiveBlogList({
+            const results = await PageProvider.getPublishedBlogList({
                 page: 1,
                 limit: 1,
             });
