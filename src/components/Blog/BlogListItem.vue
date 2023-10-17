@@ -22,6 +22,7 @@ const card_class = computed(() => {
 
     <div class="card-content">
       <p class="title is-5">{{ blog.title }}</p>
+      <p class="subtitle is-6">{{ $filters.formatDateOnly(blog.created_at) }}</p>
       <div v-html="blog.content?.first_paragraph"></div>
       <div class="field is-grouped">
         <p class="control">

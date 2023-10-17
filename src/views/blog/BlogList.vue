@@ -66,9 +66,10 @@ async function getMostRecentBlog() {
 <template>
 <div class="columns blog_page">
   <div class="column is-8-tablet is-hidden-mobile">
-    <div v-if="active_blog" class="card">
+    <div v-if="!is_active_loading" class="card">
       <div class="card-content">
         <p class="title is-4">{{ active_blog.title }}</p>
+        <p class="subtitle is-6">{{ $filters.formatDateOnly(active_blog.created_at) }}</p>
         <div v-html="active_blog.content?.content_with_images" class="content_container"></div>
       </div>
     </div>
