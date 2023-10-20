@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, nextTick, onMounted, computed } from "vue";
 import PageProvider from "@/providers/PageProvider";
 import { useRoute } from "vue-router";
 import RichEditor from "@/components/FormFields/RichEditor.vue";
@@ -67,6 +67,13 @@ function getRevisions() {
       });
 }
 
+async function handleSelectRevision(revision_id) {
+  show_editor.value = false;
+  blog.value = revisions.value.find((revision) => revision.id === revision_id);
+  await nextTick();
+  show_editor.value = true;
+}
+
 function handlePagination(navigate_to) {
   page.value = navigate_to;
 
@@ -95,6 +102,7 @@ function handlePagination(navigate_to) {
             v-model="blog.content.content"
             input_name="content"
             input_label="Content"
+            ref="editor"
         />
 
         <div class="field is-horizontal">
@@ -129,6 +137,7 @@ function handlePagination(navigate_to) {
           :page="page"
           :pages="pages"
           @toggle="toggleRevisionSelector"
+          @select_revision="handleSelectRevision"
         />
       </div>
     </div>

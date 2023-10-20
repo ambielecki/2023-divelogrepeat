@@ -4,10 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Pagination from "@/components/Pagination.vue";
 
 const props = defineProps(['is_collapsed', 'page_revisions', 'selected_id', 'show_pagination', 'page', 'pages']);
-const emit = defineEmits(['navigate', 'toggle']);
+const emit = defineEmits(['navigate', 'toggle', 'select_revision']);
 
 function handlePaginationNavigate(page) {
   console.log(page);
+}
+
+function selectRevision(id) {
+  emit('select_revision', id)
 }
 </script>
 
@@ -24,7 +28,11 @@ function handlePaginationNavigate(page) {
           </span>
         </p>
         <div v-show="!is_collapsed" class="content">
-          <div v-for="page_revision in page_revisions" :class="{ notification: true, 'has-background-success-light': page_revision.id === selected_id }">
+          <div
+              v-for="page_revision in page_revisions"
+              :class="{ notification: true, 'has-background-success-light': page_revision.id === selected_id }"
+              @click="selectRevision(page_revision.id)"
+          >
             <b>Revision {{ page_revision.revision }}:</b> {{ $filters.formatDate(page_revision.created_at) }}
           </div>
           <div v-if="show_pagination" class="columns">
@@ -50,5 +58,9 @@ function handlePaginationNavigate(page) {
   > svg {
     height: 1.5rem;
   }
+}
+
+.notification:hover {
+  box-shadow: 0 0.75em 1.5em -0.250em #3e8ed0, 0 0 0 1px #0a0a0a05;
 }
 </style>
