@@ -27,7 +27,7 @@ function toggleImageSelector() {
   is_image_selector_collapsed.value = !is_image_selector_collapsed.value;
 }
 
-const is_revisions_collapsed = ref(true);
+const is_revisions_collapsed = ref(false);
 function toggleRevisionSelector() {
   is_revisions_collapsed.value = !is_revisions_collapsed.value;
 }
