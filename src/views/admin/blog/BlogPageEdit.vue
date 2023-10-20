@@ -6,13 +6,24 @@ import RichEditor from "@/components/FormFields/RichEditor.vue";
 import ImageSelector from "@/components/Image/ImageSelector.vue";
 import Revisions from "@/components/Page/Revisions.vue";
 import TextInput from "@/components/FormFields/TextInput.vue";
+import RadioInput from "@/components/FormFields/RadioInput.vue";
+import { useAlertStore } from "@/stores/alert";
+import router from "@/router";
 
 const blog = ref({
   content: {
     title: '',
     content: '',
-  }
+  },
+  is_published: 0,
+  is_active: 0,
+  parent_id: 0,
 });
+
+const published_values = {
+  Yes: 1,
+  No: 0,
+}
 
 const revisions = ref([]);
 const show_pagination = ref(false);
@@ -47,8 +58,17 @@ onMounted(() => {
       });
 });
 
-function handleSave() {
-  console.log('saving...')
+async function handleSave() {
+  const response = await PageProvider.postBlogPageRevision({
+        page: blog.value,
+      },
+      blog.value.parent_id
+  );
+
+  if (response) {
+    useAlertStore().addAlert('New Blog Post Revision Created');
+    router.push({name: 'admin_blog_list'});
+  }
 }
 
 function getRevisions() {
@@ -88,7 +108,10 @@ function handlePagination(navigate_to) {
       <div class="card-content">
 
         <p class="title is-4">Edit Blog Entry</p>
-        <p class="subtitle is-4">Editing Version: {{ blog.revision }}</p>
+        <p class="subtitle is-4">Editing Revision: {{ blog.revision }}
+          <span v-if="!blog.is_active" class="has-text-danger"> - This Version Is Not Active!</span>
+          <span v-else class="has-text-success"> - Active Version!</span>
+        </p>
 
         <TextInput
             input_label="Title"
@@ -103,6 +126,13 @@ function handlePagination(navigate_to) {
             input_name="content"
             input_label="Content"
             ref="editor"
+        />
+
+        <RadioInput
+          input_name="is_published"
+          input_label="Is Published"
+          :input_values="published_values"
+          v-model="blog.is_published"
         />
 
         <div class="field is-horizontal">

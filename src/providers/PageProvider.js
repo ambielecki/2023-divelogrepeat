@@ -84,6 +84,12 @@ class PageProvider {
 
         return diveLogApiProvider.processApiResponse(response);
     }
+
+    async postBlogPageRevision(page_data, parent_id) {
+        const response = await useAsyncPost(this.base_api + '/admin/blog/revisions/' + parent_id, page_data, true);
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
 }
 
 export default new PageProvider();
