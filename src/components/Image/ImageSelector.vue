@@ -120,7 +120,7 @@ onMounted(() => {
 
           <div v-if="show_pagination" class="columns">
             <div class="column">
-              <Pagination :current_page="page" :pages="pages" route="image_list"
+              <Pagination :current_page="page" :pages="pages"
                           @paginationNavigate="handlePaginationNavigate"/>
             </div>
           </div>
@@ -129,7 +129,7 @@ onMounted(() => {
     </div>
   </div>
 
-  <div v-if="has_selected_image" class="column is-full">
+  <div v-if="has_selected_image && !is_collapsed" class="column is-full">
     <div class="card">
       <div class="card-image">
         <figure class="image">

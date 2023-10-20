@@ -134,7 +134,7 @@
 
   <div v-if="show_pagination" class="columns">
     <div class="column">
-      <Pagination :current_page="page" :pages="pages" route="image_list" @paginationNavigate="handlePaginationNavigate"/>
+      <Pagination :current_page="page" :pages="pages" @paginationNavigate="handlePaginationNavigate"/>
     </div>
   </div>
 </template>

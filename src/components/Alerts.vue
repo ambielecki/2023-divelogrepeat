@@ -33,7 +33,7 @@
 .alert_container {
   position: absolute;
   width: 100%;
-  z-index: 1000;
+  z-index: 25;
   .notification {
     margin-bottom: 0.5rem;
   }

@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 
-const props = defineProps(['current_page', 'pages', 'route']);
+const props = defineProps(['current_page', 'pages']);
 
 const is_first_page = computed(() => {
   return props.current_page === 1;

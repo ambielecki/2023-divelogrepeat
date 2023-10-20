@@ -107,4 +107,7 @@ import { computed, onMounted } from "vue";
   }
 }
 
+.navbar-dropdown {
+  z-index: 100 !important;
+}
 </style>

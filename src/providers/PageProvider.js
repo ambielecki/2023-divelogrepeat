@@ -51,13 +51,29 @@ class PageProvider {
         return diveLogApiProvider.processApiResponse(response);
     }
 
+    async getBlogRevisions(parent_id, params = {}) {
+        const filtered_query_params = {};
+
+        for (const query_param in params) {
+            if (!params[query_param]) {
+                continue;
+            }
+
+            filtered_query_params[query_param] = params[query_param];
+        }
+
+        const response = await useAsyncGet(this.base_api + '/admin/blog/revisions?parent_id=' + parent_id + '&' + new URLSearchParams(filtered_query_params).toString(), true);
+
+        return diveLogApiProvider.processApiResponse(response);
+    }
+
     async getBlogItem(slug) {
         const response = await useAsyncGet(this.base_api + '/blog/' + slug);
 
         return diveLogApiProvider.processApiResponse(response);
     }
 
-    async getBlogByParent(id) {
+    async getBlogById(id) {
         const response = await useAsyncGet(this.base_api + '/admin/blog/' + id, true);
 
         return diveLogApiProvider.processApiResponse(response);

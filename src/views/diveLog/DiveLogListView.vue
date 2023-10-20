@@ -102,7 +102,7 @@
   </div>
   <div v-if="show_pagination" class="columns">
     <div class="column">
-      <Pagination :current_page="page" :pages="pages" route="dive_log_view" @paginationNavigate="handlePaginationNavigate"/>
+      <Pagination :current_page="page" :pages="pages" @paginationNavigate="handlePaginationNavigate"/>
     </div>
   </div>
 </template>
