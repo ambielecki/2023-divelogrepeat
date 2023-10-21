@@ -63,17 +63,9 @@ import { computed, onMounted } from "vue";
         <Transition>
           <router-link v-if="userStore.is_logged_in" :to="{ name: 'dive_log' }" class="navbar-item">Dive Log</router-link>
         </Transition>
-        <div v-if="is_admin" class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Admin
-          </a>
-
-          <div class="navbar-dropdown">
-            <router-link :to="{ name: 'edit_home' }" class="navbar-item">Home Page</router-link>
-            <router-link :to="{ name: 'admin_blog_list' }" class="navbar-item">Blog</router-link>
-            <router-link :to="{ name: 'image_list' }" class="navbar-item">Images</router-link>
-          </div>
-        </div>
+        <Transition>
+          <router-link v-if="is_admin" :to="{ name: 'admin_index' }" class="navbar-item">Admin</router-link>
+        </Transition>
       </div>
 
       <div class="navbar-end">

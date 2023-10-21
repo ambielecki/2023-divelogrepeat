@@ -32,7 +32,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     function getIsAdmin() {
-        return user.value.is_admin;
+        return !!user.value.is_admin;
     }
 
     function logOut() {

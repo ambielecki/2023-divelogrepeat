@@ -88,7 +88,7 @@ const router = createRouter({
             name: 'edit_home',
             component: () => import('../views/admin/HomePageEdit.vue'),
             beforeEnter: (to, from) => {
-                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                if (!useUserStore().getIsAdmin() || (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken())) {
                     return false;
                 }
             }
@@ -98,7 +98,7 @@ const router = createRouter({
             name: 'image_upload',
             component: () => import('../views/admin/image/ImageUpload.vue'),
             beforeEnter: (to, from) => {
-                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                if (!useUserStore().getIsAdmin() || (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken())) {
                     return false;
                 }
             }
@@ -108,7 +108,7 @@ const router = createRouter({
             name: 'image_list',
             component: () => import('../views/admin/image/ImageList.vue'),
             beforeEnter: (to, from) => {
-                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                if (!useUserStore().getIsAdmin() || (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken())) {
                     return false;
                 }
             }
@@ -118,7 +118,7 @@ const router = createRouter({
             name: 'admin_blog_list',
             component: () => import('../views/admin/blog/BlogPageList.vue'),
             beforeEnter: (to, from) => {
-                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                if (!useUserStore().getIsAdmin() || (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken())) {
                     return false;
                 }
             }
@@ -128,7 +128,7 @@ const router = createRouter({
             name: 'blog_create',
             component: () => import('../views/admin/blog/BlogPageCreate.vue'),
             beforeEnter: (to, from) => {
-                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                if (!useUserStore().getIsAdmin() || (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken())) {
                     return false;
                 }
             }
@@ -138,7 +138,17 @@ const router = createRouter({
             name: 'blog_edit',
             component: () => import('../views/admin/blog/BlogPageEdit.vue'),
             beforeEnter: (to, from) => {
-                if (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken()) {
+                if (!useUserStore().getIsAdmin() || (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken())) {
+                    return false;
+                }
+            }
+        },
+        {
+            path: '/admin',
+            name: 'admin_index',
+            component: () => import('../views/admin/Admin.vue'),
+            beforeEnter: (to, from) => {
+                if (!useUserStore().getIsAdmin() || (!useUserStore().is_logged_in && !AuthProvider.checkCachedToken())) {
                     return false;
                 }
             }
