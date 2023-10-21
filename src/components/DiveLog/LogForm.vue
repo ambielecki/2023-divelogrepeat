@@ -9,6 +9,7 @@
   const props = defineProps(['dive_log', 'max_dive']);
   const emit = defineEmits(['cancel', 'save']);
   const form_data = ref({});
+  const display_all_form_fields = ref(false);
   const computer_values = {
     Yes: 1,
     No: 0,
@@ -28,6 +29,7 @@
 
   onMounted(() => {
     form_data.value = JSON.parse(JSON.stringify(props.dive_log));
+    display_all_form_fields.value = true;
   });
 </script>
 
@@ -133,6 +135,86 @@
           :input_values="computer_values"
           v-model="form_data.used_computer"
           is_stacked="true"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="column is-half">
+    <div class="card">
+      <div class="card-content">
+        <p class="title">Equipment</p>
+        <TextInput
+            v-if="display_all_form_fields"
+            input_label="Exposure Protection"
+            input_name="exposure_suit"
+            input_placeholder="Exposure Protection"
+            v-model="form_data.equipment_details.exposure_suit"
+            is_stacked="true"
+        />
+        <TextInput
+            v-if="display_all_form_fields"
+            input_label="Weight"
+            input_name="weight"
+            input_placeholder="Weight"
+            v-model="form_data.equipment_details.weight"
+            is_stacked="true"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="column is-half">
+    <div class="card">
+      <div class="card-content">
+        <p class="title">Conditions</p>
+        <TextInput
+            v-if="display_all_form_fields"
+            input_label="Dive Type"
+            input_name="dive_type"
+            input_placeholder="Dive Type"
+            v-model="form_data.dive_details.dive_type"
+            is_stacked="true"
+        />
+        <TextInput
+            v-if="display_all_form_fields"
+            input_label="Weather"
+            input_name="weather"
+            input_placeholder="Weather"
+            v-model="form_data.dive_details.weather"
+            is_stacked="true"
+        />
+        <TextInput
+            v-if="display_all_form_fields"
+            input_label="Surface Conditions"
+            input_name="surface_conditions"
+            input_placeholder="Surface Conditions"
+            v-model="form_data.dive_details.surface_conditions"
+            is_stacked="true"
+        />
+        <TextInput
+            v-if="display_all_form_fields"
+            input_label="Air Temperature"
+            input_name="air_temperature"
+            input_placeholder="Air Temperature"
+            v-model="form_data.dive_details.air_temperature"
+            is_stacked="true"
+        />
+        <TextInput
+            v-if="display_all_form_fields"
+            input_label="Visibility"
+            input_name="visibility"
+            input_placeholder="Visibility"
+            v-model="form_data.dive_details.visibility"
+            is_stacked="true"
+        />
+        <TextInput
+            v-if="display_all_form_fields"
+            input_label="Water Temperature"
+            input_name="water_temperature"
+            input_placeholder="Water Temperature"
+            v-model="form_data.dive_details.water_temperature"
+            is_stacked="true"
         />
       </div>
     </div>

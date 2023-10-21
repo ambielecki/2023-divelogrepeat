@@ -79,6 +79,30 @@
       <div class="column is-half">
         <div class="card">
           <div class="card-content">
+            <p class="title">Equipment Details</p>
+            <p><b>Exposure Protection:</b> {{ dive_log.equipment_details?.exposure_suit }}</p>
+            <p><b>Weight:</b> {{ dive_log.equipment_details?.weight }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="card">
+          <div class="card-content">
+            <p class="title">Conditions</p>
+            <p><b>Dive Type (boat / shore):</b> {{ dive_log.dive_details?.dive_type }}</p>
+            <p><b>Weather:</b> {{ dive_log.dive_details?.weather }}</p>
+            <p><b>Surface Conditions:</b> {{ dive_log.dive_details?.surface_conditions }}</p>
+            <p><b>Visibility:</b> {{ dive_log.dive_details?.visibility }}</p>
+            <p><b>Water Temperature:</b> {{ dive_log.dive_details?.water_temperature }}</p>
+            <p><b>Air Temperature:</b> {{ dive_log.dive_details?.air_temperature }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="card">
+          <div class="card-content">
             <p class="title">Notes</p>
             {{ dive_log.notes }}
           </div>

@@ -30,8 +30,18 @@
         route.params.id
     );
 
-    if (result) {
-        dive_log.value = result.dive_log;
+    if (result.dive_log.equipment_details) {
+      dive_log.value = result.dive_log;
+      dive_log.value.dive_details = {
+        air_temperature: result.dive_log.dive_details?.air_temperature ?? null,
+        weather: result.dive_log.dive_details?.weather ?? null,
+        surface_conditions: result.dive_log.dive_details?.surface_conditions ?? null,
+        water_temperature: result.dive_log.dive_details?.water_temperature ?? null,
+      };
+      dive_log.value.equipment_details = {
+        exposure_suit: result.dive_log.equipment_details?.exposure_suit ?? null,
+        weight: result.dive_log.equipment_details?.weight ?? null,
+      };
     }
 
     is_loading.value = false

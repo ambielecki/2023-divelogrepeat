@@ -46,7 +46,7 @@ const router = createRouter({
         {
             path: '/blog/:slug',
             name: 'blog_view',
-            component: BlogItemView,
+            component: () => import('../views/blog/BlogItemView.vue'),
         },
         {
             path: '/blog',
