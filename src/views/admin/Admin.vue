@@ -1,9 +1,22 @@
 <script setup>
 
+import DiveLogsReport from "@/components/Admin/reports/DiveLogsReport.vue";
+import UsersReport from "@/components/Admin/reports/UsersReport.vue";
 </script>
 
 <template>
-  <div class="columns">
+  <div class="columns is-multiline">
+    <div class="column is-full">
+      <div class="columns">
+        <div class="column is-one-third">
+          <UsersReport />
+        </div>
+        <div class="column is-one-third">
+          <DiveLogsReport />
+        </div>
+      </div>
+    </div>
+
     <div class="column is-one-third">
       <nav class="panel">
         <p class="panel-heading">

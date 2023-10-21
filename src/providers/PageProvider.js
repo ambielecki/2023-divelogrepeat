@@ -1,4 +1,4 @@
-import { useAsyncGet } from "../composables/asyncGet";
+import { useAsyncGet } from "@/composables/asyncGet";
 import diveLogApiProvider from "./DiveLogApiProvider";
 import { useAsyncPost } from "@/composables/asyncPost";
 
