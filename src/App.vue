@@ -6,6 +6,7 @@ import { RouterView, useRoute } from 'vue-router'
   import { useAlertStore } from "./stores/alert";
   import AuthProvider from "./providers/AuthProvider";
   import { computed, onMounted } from "vue";
+import Footer from "@/components/Footer.vue";
 
   setInterval(() => {
     if (useUserStore().is_logged_in) {
@@ -48,12 +49,19 @@ import { RouterView, useRoute } from 'vue-router'
 </style>
 
 <template>
-<div>
+<div class="main_container">
   <TopNav />
   <Alerts />
   <div :class="container_class">
     <RouterView />
   </div>
-</div>
 
+</div>
+<Footer />
 </template>
+
+<style>
+.main_container {
+  min-height: calc(100vh - 3.5rem);
+}
+</style>
