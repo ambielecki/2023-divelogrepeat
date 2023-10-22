@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 <style scoped>
 footer {
   padding: 1rem;
+  margin-top: 5rem;
 }
 
 a {
