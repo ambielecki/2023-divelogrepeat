@@ -18,6 +18,14 @@ class DiveLogApiProvider {
                 message = json.message;
             }
 
+            if (response.status === 422) {
+                const errors = json.data?.errors
+                if (errors) {
+                    useAlertStore().addValidationAlert(message, errors, useAlertStore().warning);
+                    return null;
+                }
+            }
+
             useAlertStore().addAlert(message, useAlertStore().warning)
 
             return null;

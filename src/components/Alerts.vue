@@ -24,6 +24,11 @@
     >
       <button class="delete" @click="useAlertStore().removeAlert(key)" data-test="notification-dismiss"></button>
       {{ alert.message }}
+      <div v-if="alert.errors" class="content">
+        <ul>
+          <li v-for="error in alert.errors">{{ error[0] }}</li>
+        </ul>
+      </div>
     </div>
   </TransitionGroup>
 </div>

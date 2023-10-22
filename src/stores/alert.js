@@ -33,5 +33,14 @@ export const useAlertStore = defineStore('alert', () => {
         });
     }
 
-    return { alerts, removeExpiredAlerts, removeAlert, addAlert, decrementMessageTimes, success, warning, danger };
+    function addValidationAlert(message = 'Validation Failed', errors = {}, type = success, time = 5) {
+        alerts.value.push({
+            type: type,
+            message: message,
+            time: time,
+            errors: errors,
+        });
+    }
+
+    return { alerts, removeExpiredAlerts, removeAlert, addAlert, decrementMessageTimes, addValidationAlert, success, warning, danger };
 });
