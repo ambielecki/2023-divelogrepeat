@@ -5,7 +5,6 @@ import AuthProvider from "../providers/AuthProvider";
 import DiveCalculator from "@/views/DiveCalculator.vue";
 import LoginView from "@/views/auth/LoginView.vue";
 import RegisterView from "@/views/auth/RegisterView.vue";
-import BlogItemView from "@/views/blog/BlogItemView.vue";
 import BlogList from "@/views/blog/BlogList.vue";
 import ForgotPassword from "@/views/auth/ForgotPassword.vue";
 import ResetPassword from "@/views/auth/ResetPassword.vue";

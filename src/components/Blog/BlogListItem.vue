@@ -25,7 +25,7 @@ const card_class = computed(() => {
       <p class="subtitle is-6">{{ $filters.formatDateOnly(blog.created_at) }}</p>
       <div v-html="blog.content?.first_paragraph"></div>
       <div class="field is-grouped">
-        <p class="control">
+        <p v-if="blog.slug" class="control">
           <router-link :to="{ name: 'blog_view', params: { slug: blog.slug }, query: { from_page: from_page }}">
             <button class="button is-info view_more_button">Read More</button>
           </router-link>
