@@ -4,9 +4,9 @@ import DiveLogProvider from "../../providers/DiveLogProvider";
 import LogForm from "@/components/DiveLog/LogForm.vue";
 import { useAlertStore } from "@/stores/alert";
 import router from "@/router";
-import { createDiveLog } from "@/models/DiveLog";
+import { diveLog } from "@/models/DiveLog";
 
-const dive_log = ref(createDiveLog({}));
+const dive_log = ref(diveLog().createDiveLog({}));
 
 const max_dive = ref(0);
 

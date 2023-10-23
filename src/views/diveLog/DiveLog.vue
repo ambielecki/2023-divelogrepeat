@@ -5,7 +5,7 @@
   import LoadingCard from "@/components/LoadingCard.vue";
   import LogView from "@/components/DiveLog/LogView.vue";
   import LogForm from "@/components/DiveLog/LogForm.vue";
-  import { createDiveLog } from "@/models/DiveLog";
+  import { diveLog } from "@/models/DiveLog";
 
   const route = useRoute();
   const is_loading = ref(true);
@@ -31,9 +31,7 @@
         route.params.id
     );
 
-    if (result.dive_log.equipment_details) {
-      dive_log.value = createDiveLog(result.dive_log);
-    }
+    dive_log.value = diveLog().createDiveLog(result.dive_log);
 
     is_loading.value = false
   }
