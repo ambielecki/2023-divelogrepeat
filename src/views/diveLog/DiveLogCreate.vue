@@ -4,32 +4,9 @@ import DiveLogProvider from "../../providers/DiveLogProvider";
 import LogForm from "@/components/DiveLog/LogForm.vue";
 import { useAlertStore } from "@/stores/alert";
 import router from "@/router";
+import { createDiveLog } from "@/models/DiveLog";
 
-const dive_log = ref({
-  dive_number: null,
-  location: '',
-  dive_site: '',
-  date_time: '',
-  buddy: '',
-  max_depth_ft: null,
-  bottom_time_min: null,
-  surface_interval_min: null,
-  used_computer: 0,
-  description: '',
-  notes: '',
-  dive_details: {
-    dive_type: null,
-    air_temperature: null,
-    weather: null,
-    surface_conditions: null,
-    visibility: null,
-    water_temperature: null,
-  },
-  equipment_details: {
-    exposure_suit: null,
-    weight: null,
-  },
-});
+const dive_log = ref(createDiveLog({}));
 
 const max_dive = ref(0);
 
