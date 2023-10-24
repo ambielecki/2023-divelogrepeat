@@ -35,6 +35,8 @@ export const diveLog = () => {
             has_errors: false,
             dive_number: [],
             dive_location: [],
+            dive_site: [],
+            buddy: [],
         };
 
         if (!validationProvider.validateNotBlank(dive_log.dive_number)
@@ -43,13 +45,25 @@ export const diveLog = () => {
             errors.dive_number.push('Dive number cannot be blank and must be numeric');
         }
 
-        if (!validationProvider.validateNotBlank(dive_log.location)) {
+        if (!validationProvider.validateNotBlank(dive_log.location)
+            || !validationProvider.validateMaxLength(dive_log.location, 255)) {
             errors.has_errors = true;
-            errors.dive_location.push('Dive location cannot be blank');
+            errors.dive_location.push('Dive location cannot be blank and must be less than 255 characters');
+        }
+
+        if (!validationProvider.validateNotBlank(dive_log.dive_site)
+            || !validationProvider.validateMaxLength(dive_log.dive_site, 255)) {
+            errors.has_errors = true;
+            errors.dive_site.push('Dive site cannot be blank and must be less than 255 characters');
+        }
+
+        if (!validationProvider.validateMaxLength(dive_log.buddy, 255)) {
+            errors.has_errors = true;
+            errors.buddy.push('Buddy cannot exceed 255 characters');
         }
 
         return errors;
     }
 
-    return { createDiveLog, validateDiveLog }
+    return {createDiveLog, validateDiveLog}
 }

@@ -86,6 +86,7 @@
             input_placeholder="Dive Site"
             v-model="form_data.dive_site"
             is_stacked="true"
+            :errors="errors?.dive_site"
         />
         <TextInput
             input_label="Buddy"
@@ -93,6 +94,7 @@
             input_placeholder="Buddy"
             v-model="form_data.buddy"
             is_stacked="true"
+            :errors="errors?.buddy"
         />
 
         <div class="field">
