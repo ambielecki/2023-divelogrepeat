@@ -6,7 +6,7 @@
   import VueDatePicker from '@vuepic/vue-datepicker';
   import '@vuepic/vue-datepicker/dist/main.css'
 
-  const props = defineProps(['dive_log', 'max_dive']);
+  const props = defineProps(['dive_log', 'max_dive', 'errors']);
   const emit = defineEmits(['cancel', 'save']);
   const form_data = ref({});
   const display_all_form_fields = ref(false);
@@ -48,6 +48,7 @@
               input_name="dive_number"
               :input_placeholder="next_dive"
               v-model="form_data.dive_number"
+              :errors="errors?.dive_number"
             />
           </div>
 
@@ -77,6 +78,7 @@
             input_placeholder="Location"
             v-model="form_data.location"
             is_stacked="true"
+            :errors="errors?.dive_location"
         />
         <TextInput
             input_label="Dive Site"

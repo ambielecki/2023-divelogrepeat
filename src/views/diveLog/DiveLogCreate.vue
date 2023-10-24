@@ -4,9 +4,12 @@ import DiveLogProvider from "../../providers/DiveLogProvider";
 import LogForm from "@/components/DiveLog/LogForm.vue";
 import { useAlertStore } from "@/stores/alert";
 import router from "@/router";
-import { diveLog } from "@/models/DiveLog";
+import { diveLog } from "@/composables/models/DiveLog";
 
 const dive_log = ref(diveLog().createDiveLog({}));
+const errors = ref({
+  has_errors: false,
+});
 
 const max_dive = ref(0);
 
@@ -27,6 +30,17 @@ onMounted(() => {
 function handleSave(form_data) {
   dive_log.value = form_data;
   loading.value.log_dive = true;
+  errors.value = {
+    has_errors: false,
+  };
+
+  const validation_errors = diveLog().validateDiveLog(dive_log.value);
+  if (validation_errors.has_errors) {
+    errors.value = validation_errors;
+
+    return false;
+  }
+
   DiveLogProvider.postCreate(dive_log.value)
       .then((response) => {
         loading.value.log_dive = false;
@@ -44,7 +58,7 @@ function handleCancel() {
 </script>
 
 <template>
-<LogForm :dive_log="dive_log" :max_dive="max_dive" @cancel="handleCancel" @save="handleSave"></LogForm>
+<LogForm :dive_log="dive_log" :max_dive="max_dive" @cancel="handleCancel" @save="handleSave" :errors="errors"></LogForm>
 </template>
 
 <style scoped>

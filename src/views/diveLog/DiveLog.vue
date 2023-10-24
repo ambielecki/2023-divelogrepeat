@@ -5,7 +5,7 @@
   import LoadingCard from "@/components/LoadingCard.vue";
   import LogView from "@/components/DiveLog/LogView.vue";
   import LogForm from "@/components/DiveLog/LogForm.vue";
-  import { diveLog } from "@/models/DiveLog";
+  import { diveLog } from "@/composables/models/DiveLog";
 
   const route = useRoute();
   const is_loading = ref(true);

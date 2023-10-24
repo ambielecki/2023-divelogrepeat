@@ -1,3 +1,5 @@
+import validationProvider from "@/providers/ValidationProvider";
+
 export const diveLog = () => {
     function createDiveLog(api_data) {
         return {
@@ -28,5 +30,26 @@ export const diveLog = () => {
         }
     }
 
-    return { createDiveLog }
+    function validateDiveLog(dive_log) {
+        const errors = {
+            has_errors: false,
+            dive_number: [],
+            dive_location: [],
+        };
+
+        if (!validationProvider.validateNotBlank(dive_log.dive_number)
+            || !validationProvider.validateNumeric(dive_log.dive_number)) {
+            errors.has_errors = true;
+            errors.dive_number.push('Dive number cannot be blank and must be numeric');
+        }
+
+        if (!validationProvider.validateNotBlank(dive_log.location)) {
+            errors.has_errors = true;
+            errors.dive_location.push('Dive location cannot be blank');
+        }
+
+        return errors;
+    }
+
+    return { createDiveLog, validateDiveLog }
 }
