@@ -24,7 +24,15 @@ class ValidationProvider {
     }
 
     validateNumeric(test) {
-        return test !== null && parseInt(test);
+        if (test !== null) {
+            return parseInt(test);
+        }
+         return true;
+    }
+
+    // this is not correct at all, really only tests for a numeric string
+    validateIsDate(test) {
+        return !isNaN(new Date(test));
     }
 }
 

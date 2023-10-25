@@ -37,6 +37,12 @@ export const diveLog = () => {
             dive_location: [],
             dive_site: [],
             buddy: [],
+            date_time: [],
+            max_depth_ft: [],
+            bottom_time_min: [],
+            surface_interval_min: [],
+            notes: [],
+            description: [],
         };
 
         if (!validationProvider.validateNotBlank(dive_log.dive_number)
@@ -60,6 +66,39 @@ export const diveLog = () => {
         if (!validationProvider.validateMaxLength(dive_log.buddy, 255)) {
             errors.has_errors = true;
             errors.buddy.push('Buddy cannot exceed 255 characters');
+        }
+
+        if (!validationProvider.validateNotBlank(dive_log.dive_site)
+            || !validationProvider.validateIsDate(dive_log.date_time)) {
+            errors.has_errors = true;
+            errors.date_time.push('Date is required');
+        }
+
+        if (!validationProvider.validateNotBlank(dive_log.max_depth_ft)
+            || !validationProvider.validateNumeric(dive_log.max_depth_ft)) {
+            errors.has_errors = true;
+            errors.max_depth_ft.push('Max Depth cannot be blank and must be numeric');
+        }
+
+        if (!validationProvider.validateNotBlank(dive_log.bottom_time_min)
+            || !validationProvider.validateNumeric(dive_log.bottom_time_min)) {
+            errors.has_errors = true;
+            errors.bottom_time_min.push('Bottom time cannot be blank and must be numeric');
+        }
+
+        if (!validationProvider.validateNumeric(dive_log.surface_interval_min)) {
+            errors.has_errors = true;
+            errors.surface_interval_min.push('Surface Interval must be numeric');
+        }
+
+        if (!validationProvider.validateMaxLength(dive_log.notes, 2000)) {
+            errors.has_errors = true;
+            errors.buddy.push('Notes cannot exceed 255 characters');
+        }
+
+        if (!validationProvider.validateMaxLength(dive_log.description, 2000)) {
+            errors.has_errors = true;
+            errors.buddy.push('Description cannot exceed 255 characters');
         }
 
         return errors;

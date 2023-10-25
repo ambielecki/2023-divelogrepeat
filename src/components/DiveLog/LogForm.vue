@@ -103,6 +103,16 @@
             <VueDatePicker name="date_time" :is24="false" v-model="form_data.date_time"></VueDatePicker>
           </div>
         </div>
+        <div v-if="errors?.date_time && errors?.date_time.length > 0" class="field is-grouped is-horizontal">
+          <div class="field-body">
+            <div class="control">
+              <p class="help is-danger" v-for="date_error in errors.date_time">
+                {{ date_error }}
+              </p>
+            </div>
+          </div>
+        </div>
+
 
       </div>
     </div>
@@ -118,6 +128,7 @@
             input_placeholder="Max Depth (ft)"
             v-model="form_data.max_depth_ft"
             is_stacked="true"
+            :errors="errors?.max_depth_ft"
         />
         <TextInput
             input_label="Bottom Time (min)"
@@ -125,6 +136,7 @@
             input_placeholder="Bottom Time (min)"
             v-model="form_data.bottom_time_min"
             is_stacked="true"
+            :errors="errors?.bottom_time_min"
         />
         <TextInput
             input_label="Surface Interval (min)"
@@ -132,6 +144,7 @@
             input_placeholder="Surface Interval (min)"
             v-model="form_data.surface_interval_min"
             is_stacked="true"
+            :errors="errors?.surface_interval_min"
         />
         <RadioInput
           input_name="computer"
@@ -232,6 +245,7 @@
           input_name="notes"
           v-model="form_data.notes"
           is_stacked="true"
+          :errors="errors?.notes"
         ></TextAreaInput>
       </div>
     </div>
@@ -244,6 +258,7 @@
             input_name="description"
             v-model="form_data.description"
             is_stacked="true"
+            :errors="errors?.description"
         ></TextAreaInput>
       </div>
     </div>
