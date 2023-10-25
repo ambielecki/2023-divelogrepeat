@@ -4,11 +4,11 @@ class ValidationProvider {
     }
 
     validateMinLength(test, length) {
-        return test.length >= length;
+        return test.toString().length >= length;
     }
 
     validateMaxLength(test, length) {
-        return test.length <= length;
+        return test.toString().length <= length;
     }
 
     validateMatch(test_1, test_2) {
@@ -25,9 +25,9 @@ class ValidationProvider {
 
     validateNumeric(test) {
         if (test !== null) {
-            return parseInt(test);
+            return !isNaN(parseFloat(test));
         }
-         return true;
+        return true;
     }
 
     // this is not correct at all, really only tests for a numeric string

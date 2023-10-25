@@ -23,6 +23,9 @@
   });
 
   const dive_log = ref({});
+  const errors = ref({
+    has_errors: false,
+  });
 
   async function getDetails() {
     is_loading.value = true;
@@ -45,6 +48,17 @@
   async function handleSave(form_data) {
     dive_log.value = form_data;
     is_loading.value = true;
+    errors.value = {
+      has_errors: false,
+    };
+
+    const validation_errors = diveLog().validateDiveLog(dive_log.value);
+    if (validation_errors.has_errors) {
+      errors.value = validation_errors;
+
+      is_loading.value = false;
+      return false;
+    }
 
     const result = await DiveLogProvider.putUpdateDetails(dive_log.value, dive_log.value.id);
 
@@ -71,7 +85,7 @@
       <LoadingCard />
     </div>
     <LogView v-if="!is_loading && !is_editing" :dive_log="dive_log" @edit="handleEdit"></LogView>
-    <LogForm v-if="!is_loading && is_editing" :dive_log="dive_log" :max_dive="max_dive" @cancel="handleCancel" @save="handleSave"></LogForm>
+    <LogForm v-if="!is_loading && is_editing" :dive_log="dive_log" :max_dive="max_dive" @cancel="handleCancel" @save="handleSave" :errors="errors"></LogForm>
   </div>
 </template>
 

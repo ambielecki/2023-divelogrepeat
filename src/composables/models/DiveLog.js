@@ -93,12 +93,12 @@ export const diveLog = () => {
 
         if (!validationProvider.validateMaxLength(dive_log.notes, 2000)) {
             errors.has_errors = true;
-            errors.buddy.push('Notes cannot exceed 255 characters');
+            errors.notes.push('Notes cannot exceed 255 characters');
         }
 
         if (!validationProvider.validateMaxLength(dive_log.description, 2000)) {
             errors.has_errors = true;
-            errors.buddy.push('Description cannot exceed 255 characters');
+            errors.description.push('Description cannot exceed 255 characters');
         }
 
         return errors;
