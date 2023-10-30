@@ -47,7 +47,7 @@ import { computed, onMounted } from "vue";
 <template>
   <nav class="navbar is-info is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <router-link :to="{ name: 'home' }" class="navbar-item">DiveLogRepeat</router-link>
+      <router-link :to="{ name: 'home' }" class="navbar-item" data-test="navbar-home">DiveLogRepeat</router-link>
 
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="divelog_navbar">
         <span aria-hidden="true"></span>
@@ -58,26 +58,39 @@ import { computed, onMounted } from "vue";
 
     <div id="divelog_navbar" class="navbar-menu">
       <div class="navbar-start">
-        <router-link :to="{ name: 'blog_list' }" class="navbar-item">Blog</router-link>
-        <router-link :to="{ name: 'dive_calculator' }" class="navbar-item">Dive Calculator</router-link>
+        <router-link :to="{ name: 'blog_list' }" class="navbar-item" data-test="blog">Blog</router-link>
+        <router-link :to="{ name: 'dive_calculator' }" class="navbar-item" data-test="calculator">Dive Calculator</router-link>
         <Transition>
-          <router-link v-if="userStore.is_logged_in" :to="{ name: 'dive_log' }" class="navbar-item">Dive Log</router-link>
+          <router-link v-if="userStore.is_logged_in" :to="{ name: 'dive_log' }" class="navbar-item" data-test="log">Dive Log</router-link>
         </Transition>
         <Transition>
-          <router-link v-if="is_admin" :to="{ name: 'admin_index' }" class="navbar-item">Admin</router-link>
+          <router-link v-if="is_admin" :to="{ name: 'admin_index' }" class="navbar-item" data-test="admin">Admin</router-link>
         </Transition>
       </div>
 
       <div class="navbar-end">
         <div class="navbar-item">
-          <div v-if="!userStore.is_logged_in" class="buttons">
-            <router-link :to="{ name: 'register' }" class="button is-info is-light"><strong>Sign Up</strong></router-link>
-            <router-link :to="{ name: 'login' }" class="button is-info is-light"><strong>Log In</strong></router-link>
+          <div v-if="!userStore.is_logged_in" class="field is-grouped">
+            <p class="control">
+              <router-link :to="{ name: 'register' }" data-test="sign_up">
+                <button class="button is-info is-light">
+                  <strong>Sign Up</strong>
+                </button>
+              </router-link>
+            </p>
+            <p class="control">
+              <router-link :to="{ name: 'login' }" data-test="log_in">
+                <button class="button is-info is-light">
+                  <strong>Log In</strong>
+                </button>
+              </router-link>
+            </p>
           </div>
+
           <div v-else class="buttons">
-            <div @click="logOut" class="button is-info is-light" :class="{ 'is-loading': is_loading }">
+            <button @click="logOut" class="button is-info is-light" :class="{ 'is-loading': is_loading }" data-test="log_out">
               <strong>Log Out</strong>
-            </div>
+            </button>
           </div>
         </div>
       </div>
