@@ -49,7 +49,7 @@ import { computed, onMounted } from "vue";
     <div class="navbar-brand">
       <router-link :to="{ name: 'home' }" class="navbar-item" data-test="navbar-home">DiveLogRepeat</router-link>
 
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="divelog_navbar">
+      <a role="button" id="divelog_navbar_burger" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="divelog_navbar">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>

@@ -39,6 +39,13 @@ import Footer from "@/components/Footer.vue";
 
   onMounted(() => {
     AuthProvider.checkCachedToken();
+    const router_div = document.querySelector('#router_div');
+
+    router_div.addEventListener('click', () => {
+      document.querySelector('#divelog_navbar').classList.remove('is-active');
+      document.querySelector('#divelog_navbar_burger').classList.remove('is-active');
+    });
+
   });
 </script>
 
@@ -52,7 +59,7 @@ import Footer from "@/components/Footer.vue";
 <div class="main_container">
   <TopNav />
   <Alerts />
-  <div :class="container_class">
+  <div :class="container_class" id="router_div">
     <RouterView />
   </div>
 
