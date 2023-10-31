@@ -93,7 +93,7 @@
     <div class="column is-half">
       <div class="card">
         <div class="card-content">
-          <p class="title is-4">Login</p>
+          <p class="title is-4" data-test="login_header">Login</p>
           <TextInput
               input_label="Email"
               input_name="email"

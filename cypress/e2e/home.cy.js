@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('E2E Home Page Display', () => {
   it('visits_home_page_as_guest', () => {
     cy.visit('/');
     cy.contains('[data-test="navbar-home"]', 'DiveLogRepeat');

@@ -27,3 +27,5 @@ vendor
 *.njsproj
 *.sln
 *.sw?
+
+cypress.env.json
